@@ -1,0 +1,1807 @@
+﻿<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SUVELLA | Sự lựa chọn ngọt ngào</title>
+    <link rel="icon" type="image/webp" href="logo.webp" />
+    <link rel="apple-touch-icon" href="logo.webp" />
+    <meta
+      name="description"
+      content="SUVELLA là thương hiệu dành cho các tín đồ đam mê đồ ngọt. Suvella luôn mang đến những chiếc bánh được làm tươi mỗi ngày, chứa đựng cả sự ngọt ngào và tấm lòng chân thành gửi gắm đến khách hàng."
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@600;700;800;900&display=swap");
+      :root {
+        --pink: #fee1e2;
+        --cream: #fdfaf0;
+        --blue: #305eb6;
+        --ink: #17325c;
+        --muted: #66708a;
+        --line: rgba(48, 94, 182, 0.22);
+        --shadow: 0 18px 45px rgba(23, 50, 92, 0.1);
+        --radius: 28px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        line-height: 1.6;
+        overflow-x: hidden;
+        font-family: "Nunito", Arial, sans-serif;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+        border: 0;
+        font-family: "Comfortaa", Arial, sans-serif;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .container {
+        width: min(1180px, calc(100% - 36px));
+        margin: auto;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(253, 250, 240, 0.86);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav {
+        height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 22px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 900;
+        letter-spacing: 0.18em;
+        color: var(--blue);
+        font-family: "Playfair Display", Georgia, serif;
+      }
+      .brand-name {
+        font-family: "Playfair Display", Georgia, serif;
+      }
+      .logo-mark {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: transparent;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .top-banners {
+        padding: 32px 0 48px;
+      }
+      .banner-slider {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 8 / 3;
+        overflow: hidden;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        background: #fff;
+      }
+      .banner-track {
+        display: flex;
+        transition: transform 1.05s cubic-bezier(0.65, 0, 0.35, 1);
+        will-change: transform;
+        height: 100%;
+      }
+      .banner-slide {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .banner-track img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .banner-dot {
+        position: absolute;
+        bottom: 18px;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+        border: 0;
+        box-shadow: 0 2px 6px rgba(23, 50, 92, 0.16);
+        transform: translateX(-50%);
+        transition:
+          width 0.25s ease,
+          background 0.25s ease,
+          opacity 0.25s ease;
+      }
+      .banner-dot.active {
+        width: 22px;
+        background: var(--blue);
+      }
+      .banner-slider .banner-dot:nth-of-type(1) {
+        left: calc(50% - 24px);
+      }
+      .banner-slider .banner-dot:nth-of-type(2) {
+        left: 50%;
+      }
+      .banner-slider .banner-dot:nth-of-type(3) {
+        left: calc(50% + 24px);
+      }
+      .menu {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        color: var(--ink);
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .menu a {
+        position: relative;
+        padding: 8px 0;
+      }
+      .menu a:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 2px;
+        height: 2px;
+        background: var(--blue);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: 0.25s;
+      }
+      .menu a:hover:after,
+      .menu a.active:after {
+        transform: scaleX(1);
+      }
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .cart-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        background: #fff;
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-weight: 800;
+        color: var(--blue);
+      }
+      .cart-count {
+        min-width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--pink);
+        display: grid;
+        place-items: center;
+        color: var(--blue);
+        font-size: 12px;
+      }
+      .hamb {
+        display: none;
+        background: transparent;
+        color: var(--blue);
+        font-size: 28px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 13px 20px;
+        border-radius: 999px;
+        background: var(--blue);
+        color: #fff;
+        font-weight: 900;
+        font-family: "Comfortaa", Arial, sans-serif;
+        box-shadow: 0 12px 28px rgba(48, 94, 182, 0.2);
+        transition: 0.25s;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(48, 94, 182, 0.28);
+      }
+      .btn.secondary {
+        background: #fff;
+        color: var(--blue);
+        border: 1px solid var(--line);
+        box-shadow: none;
+      }
+      section {
+        padding: 82px 0;
+        position: relative;
+      }
+      main > section {
+        overflow: hidden;
+      }
+      main > section > .container {
+        position: relative;
+        z-index: 1;
+      }
+      main > section::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 56px;
+        pointer-events: none;
+        z-index: 0;
+      }
+      main > section:nth-of-type(odd) {
+        background: var(--pink);
+      }
+      main > section:nth-of-type(odd)::after {
+        background: linear-gradient(
+          to bottom,
+          rgba(254, 225, 226, 0),
+          var(--cream)
+        );
+      }
+      main > section:nth-of-type(even) {
+        background: var(--cream);
+      }
+      main > section:nth-of-type(even)::after {
+        background: linear-gradient(
+          to bottom,
+          rgba(253, 250, 240, 0),
+          var(--pink)
+        );
+      }
+      main > section:last-of-type::after {
+        display: none;
+      }
+      .hero {
+        padding: 68px 0 44px;
+        position: relative;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 36px;
+        align-items: center;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--blue);
+        font-weight: 900;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 12px;
+        margin-bottom: 18px;
+        font-family: "Playfair Display", Georgia, serif;
+      }
+      .eyebrow:before {
+        content: "";
+        width: 44px;
+        height: 1px;
+        background: var(--blue);
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+      h1 {
+        font-size: clamp(48px, 8vw, 102px);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+        margin-bottom: 22px;
+        color: var(--blue);
+        font-family: "Playfair Display", Georgia, serif;
+      }
+      h2 {
+        font-size: clamp(34px, 5vw, 64px);
+        line-height: 1;
+        letter-spacing: -0.04em;
+        margin-bottom: 18px;
+        color: var(--blue);
+        font-family: "Playfair Display", Georgia, serif;
+      }
+      h3 {
+        font-size: 22px;
+        line-height: 1.2;
+        margin-bottom: 12px;
+        font-family: "Playfair Display", Georgia, serif;
+      }
+      .lead {
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 620px;
+        margin-bottom: 30px;
+      }
+      .hero-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 42px;
+        padding: 0;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+      }
+      .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 32px;
+        border-top: 0;
+        padding-top: 0;
+      }
+      .products-toolbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+      .search-box,
+      .filter-box {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 13px 18px;
+        color: var(--ink);
+        outline: none;
+        min-width: 250px;
+      }
+      .search-box {
+        min-width: 360px;
+      }
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 1fr;
+        gap: 20px;
+      }
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 1fr;
+        gap: 20px;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: 0 10px 28px rgba(23, 50, 92, 0.06);
+        transition: 0.25s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+      }
+      .product-img {
+        aspect-ratio: 4 / 3;
+        display: grid;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+        background: var(--pink);
+      }
+      .product-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .product-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 20px;
+        font-family: "Nunito", Arial, sans-serif;
+      }
+      .product-body h3 {
+        height: 52px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+      .product-body p {
+        height: 76px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+      }
+      .price {
+        margin-top: auto;
+        margin-bottom: 15px;
+        min-height: 28px;
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--blue);
+      }
+      .card-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        min-height: 42px;
+        align-items: stretch;
+      }
+      .card-actions .btn {
+        padding: 10px 13px;
+        font-size: 13px;
+        flex: 1;
+        min-width: 120px;
+      }
+      .blog-card .product-img {
+        aspect-ratio: 4 / 3;
+      }
+      .blog-card .blog-meta {
+        min-height: 18px;
+      }
+      .blog-card .btn {
+        margin-top: auto;
+        align-self: flex-start;
+      }
+      .blog-meta {
+        font-size: 12px;
+        font-weight: 900;
+        color: var(--blue);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
+      .panel {
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 28px;
+        box-shadow: 0 10px 28px rgba(23, 50, 92, 0.06);
+      }
+      .qr-panel {
+        display: grid;
+        gap: 12px;
+        justify-items: center;
+        text-align: center;
+      }
+      .qr-panel img {
+        width: min(260px, 100%);
+        aspect-ratio: 1;
+        object-fit: contain;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--line);
+        padding: 10px;
+      }
+      .bank-info {
+        width: 100%;
+        display: grid;
+        gap: 8px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .bank-info b {
+        color: var(--blue);
+      }
+      .form {
+        display: grid;
+        gap: 14px;
+      }
+      .form input,
+      .form textarea,
+      .form select {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 18px;
+        padding: 14px 16px;
+        outline: none;
+        color: var(--ink);
+      }
+      .form textarea {
+        min-height: 120px;
+        resize: none;
+      }
+      .form input:focus,
+      .form textarea:focus,
+      .form select:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 4px rgba(48, 94, 182, 0.1);
+      }
+      footer {
+        padding: 56px 0 24px;
+        background: var(--blue);
+        color: #fff;
+      }
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 34px;
+      }
+      .footer-brand img {
+        width: 86px;
+        height: auto;
+        background: #fff;
+        border: 2px solid var(--pink);
+        border-radius: 18px;
+        padding: 6px;
+        box-shadow: 0 0 0 5px rgba(254, 225, 226, 0.16);
+      }
+      .footer-brand .brand-name {
+        color: #fff;
+        font-size: 34px;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        font-family: "Playfair Display", Georgia, serif;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 26px;
+      }
+      .footer-col h3 {
+        color: var(--pink);
+        font-size: 18px;
+        margin-bottom: 16px;
+      }
+      .footer-list {
+        display: grid;
+        gap: 12px;
+      }
+      .footer-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255, 255, 255, 0.88);
+        line-height: 1.45;
+      }
+      .footer-link:hover {
+        color: var(--pink);
+      }
+      .footer-icon {
+        width: 30px;
+        height: 30px;
+        flex: 0 0 30px;
+        border-radius: 50%;
+        border: 1px solid rgba(254, 225, 226, 0.55);
+        display: inline-grid;
+        place-items: center;
+      }
+      .footer-icon img {
+        width: 16px;
+        height: 16px;
+        object-fit: contain;
+      }
+      .footer-partner {
+        align-items: center;
+      }
+      .footer-partner img {
+        width: 38px;
+        height: 38px;
+        object-fit: contain;
+        background: #fff;
+        border: 2px solid var(--pink);
+        border-radius: 10px;
+        padding: 4px;
+        box-shadow: 0 0 0 4px rgba(254, 225, 226, 0.14);
+      }
+      .footer-student {
+        color: rgba(255, 255, 255, 0.88);
+        line-height: 1.65;
+      }
+      .footer-student p {
+        margin: 0 0 7px;
+      }
+      .footer-copy {
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
+        margin-top: 34px;
+        padding-top: 18px;
+        color: rgba(255, 255, 255, 0.72);
+        text-align: center;
+        font-size: 14px;
+      }
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(23, 50, 92, 0.42);
+        z-index: 100;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+      }
+      .modal.show {
+        display: flex;
+      }
+      .modal-box {
+        width: min(980px, 100%);
+        max-height: 90vh;
+        overflow: auto;
+        background: var(--cream);
+        border-radius: 32px;
+        border: 1px solid var(--line);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
+        position: relative;
+      }
+      .modal-close {
+        position: absolute;
+        right: 18px;
+        top: 18px;
+        background: #fff;
+        color: var(--blue);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        font-size: 24px;
+        font-weight: 900;
+        z-index: 2;
+      }
+      .product-detail {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 26px;
+      }
+      .product-detail .detail-img {
+        border-radius: 24px;
+        overflow: hidden;
+      }
+      .product-detail .product-photo {
+        border-radius: inherit;
+      }
+      .qty {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 18px 0;
+      }
+      .qty button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #fff;
+        color: var(--blue);
+        font-weight: 900;
+        border: 1px solid var(--line);
+      }
+      .qty strong {
+        min-width: 30px;
+        text-align: center;
+      }
+      .cart-drawer {
+        position: fixed;
+        right: -440px;
+        top: 0;
+        width: min(430px, 100%);
+        height: 100vh;
+        background: var(--cream);
+        z-index: 90;
+        box-shadow: -18px 0 40px rgba(23, 50, 92, 0.18);
+        transition: 0.3s;
+        border-left: 1px solid var(--line);
+        display: flex;
+        flex-direction: column;
+      }
+      .cart-drawer.show {
+        right: 0;
+      }
+      .cart-head {
+        height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 22px;
+        border-bottom: 1px solid var(--line);
+        position: relative;
+      }
+      .cart-close {
+        position: static;
+        flex: 0 0 44px;
+      }
+      .cart-list {
+        padding: 18px;
+        overflow: auto;
+        flex: 1;
+      }
+      .cart-item {
+        display: grid;
+        grid-template-columns: 58px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+      .thumb {
+        width: 58px;
+        height: 58px;
+        border-radius: 26px;
+        background: var(--pink);
+        display: block;
+        overflow: hidden;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: inherit;
+        display: block;
+      }
+      .cart-item h4 {
+        margin: 0 0 4px;
+        font-size: 14px;
+      }
+      .cart-item p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .cart-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 7px;
+      }
+      .cart-controls button {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--cream);
+        color: var(--blue);
+        font-weight: 900;
+      }
+      .remove {
+        background: transparent !important;
+        color: #b44444 !important;
+        font-size: 18px !important;
+      }
+      .cart-foot {
+        padding: 18px;
+        border-top: 1px solid var(--line);
+        background: #fff;
+      }
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 900;
+        font-size: 20px;
+        margin-bottom: 14px;
+        color: var(--blue);
+      }
+      .checkout-list {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .checkout-list-row {
+        display: grid;
+        grid-template-columns: 1.4fr 96px 72px 104px;
+        gap: 14px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .checkout-list-head {
+        color: var(--blue);
+        font-weight: 900;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+      .checkout-list-row span:nth-child(n + 2) {
+        text-align: right;
+        font-weight: 800;
+      }
+      .blog-page {
+        display: none;
+        padding: 96px 0;
+      }
+      .blog-page.show {
+        display: block;
+      }
+      .article {
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid var(--line);
+        border-radius: 34px;
+        padding: 34px;
+        max-width: 900px;
+        margin: auto;
+      }
+      .article h1 {
+        font-size: clamp(38px, 6vw, 72px);
+        font-family: "Playfair Display", Georgia, serif;
+      }
+      .article h2 {
+        font-size: 34px;
+        margin-top: 32px;
+        font-family: "Playfair Display", Georgia, serif;
+      }
+      .article p,
+      .article li {
+        color: #46506a;
+        font-size: 17px;
+      }
+      .article-cover {
+        aspect-ratio: 4 / 3;
+        border-radius: 28px;
+        background: var(--pink);
+        margin: 26px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .article-cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translateX(-50%) translateY(30px);
+        background: rgba(48, 94, 182, 0.88);
+        color: #fff;
+        border-radius: 999px;
+        padding: 14px 20px;
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        box-shadow: 0 18px 44px rgba(23, 50, 92, 0.22);
+        isolation: isolate;
+        font-weight: 900;
+        z-index: 200;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.28s;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .toast::before {
+        content: "";
+        position: absolute;
+        inset: -34px -46px;
+        border-radius: inherit;
+        backdrop-filter: blur(34px);
+        -webkit-backdrop-filter: blur(34px);
+        background: rgba(255, 255, 255, 0.18);
+        opacity: 0;
+        pointer-events: none;
+        z-index: -1;
+        mask-image: radial-gradient(
+          ellipse at center,
+          #000 0%,
+          rgba(0, 0, 0, 0.72) 42%,
+          rgba(0, 0, 0, 0.28) 68%,
+          transparent 100%
+        );
+        -webkit-mask-image: radial-gradient(
+          ellipse at center,
+          #000 0%,
+          rgba(0, 0, 0, 0.72) 42%,
+          rgba(0, 0, 0, 0.28) 68%,
+          transparent 100%
+        );
+        transition: opacity 0.28s;
+      }
+      .toast.show::before {
+        opacity: 1;
+      }
+      .hidden {
+        display: none !important;
+      }
+      @media (max-width: 980px) {
+        .hero-grid,
+        .contact-grid,
+        .product-detail {
+          grid-template-columns: 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .search-box {
+          min-width: 360px;
+        }
+        .product-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .blog-grid {
+          grid-template-columns: 1fr;
+        }
+        .section-head {
+          display: block;
+        }
+        .menu {
+          position: fixed;
+          top: 78px;
+          left: 0;
+          right: 0;
+          background: var(--cream);
+          border-bottom: 1px solid var(--line);
+          padding: 20px;
+          display: none;
+          flex-direction: column;
+        }
+        .menu.show {
+          display: flex;
+        }
+        .hamb {
+          display: block;
+        }
+        .nav-actions .btn {
+          display: none;
+        }
+        .top-banners {
+          padding: 24px 0 40px;
+        }
+        .banner-slider {
+          border-radius: 22px;
+        }
+      }
+      @media (max-width: 560px) {
+        .container {
+          width: min(100% - 24px, 1180px);
+        }
+        section {
+          padding: 58px 0;
+        }
+        .nav {
+          height: 70px;
+        }
+        .brand span {
+          display: none;
+        }
+        .footer-brand {
+          justify-content: center;
+        }
+        .footer-brand img {
+          width: 72px;
+        }
+        .footer-brand .brand-name {
+          font-size: 26px;
+          letter-spacing: 0.12em;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .search-box {
+          min-width: 360px;
+        }
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+        .products-toolbar input,
+        .products-toolbar select {
+          width: 100%;
+          min-width: 0;
+        }
+        .article {
+          padding: 22px;
+        }
+        .cart-drawer {
+          right: -100%;
+        }
+        .top-banners {
+          padding: 18px 0 34px;
+        }
+        .banner-slider {
+          border-radius: 18px;
+        }
+        .banner-dot {
+          bottom: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="#home" aria-label="SUVELLA Home">
+          <span class="logo-mark" aria-hidden="true">
+            <img src="logo.webp" alt="SUVELLA logo" />
+          </span>
+          <span class="brand-name">SUVELLA</span>
+        </a>
+        <nav class="menu" id="menu">
+          <a href="#home">Trang chủ</a>
+          <a href="#shop">Menu</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Liên hệ</a>
+        </nav>
+        <div class="nav-actions">
+          <a class="btn" href="#shop">Đặt bánh ngay</a>
+          <button class="cart-pill" id="openCart">
+            Giỏ hàng <span class="cart-count" id="cartCount">0</span>
+          </button>
+          <button class="hamb" id="hamb">☰</button>
+        </div>
+      </div>
+    </header>
+    <main id="siteMain">
+      <section id="banners" class="top-banners">
+        <div class="container">
+          <div class="banner-slider">
+            <div class="banner-track" id="bannerTrack">
+              <a class="banner-slide" href="#shop">
+                <img
+                  src="banner1.webp"
+                  alt="SUVELLA banner 1"
+                  width="1920"
+                  height="720"
+                />
+              </a>
+              <a class="banner-slide" href="#shop">
+                <img
+                  src="banner2.webp"
+                  alt="SUVELLA banner 2"
+                  width="1920"
+                  height="720"
+                />
+              </a>
+              <a
+                class="banner-slide"
+                href="#article-nhung-chiec-banh-signature"
+              >
+                <img
+                  src="banner3.webp"
+                  alt="SUVELLA banner 3"
+                  width="1920"
+                  height="720"
+                />
+              </a>
+              <a
+                class="banner-slide"
+                href="#shop"
+                aria-hidden="true"
+                tabindex="-1"
+              >
+                <img
+                  src="banner1.webp"
+                  alt="SUVELLA banner 1 duplicate"
+                  width="1920"
+                  height="720"
+                />
+              </a>
+            </div>
+            <button class="banner-dot active" data-slide="0"></button>
+            <button class="banner-dot" data-slide="1"></button>
+            <button class="banner-dot" data-slide="2"></button>
+          </div>
+        </div>
+      </section>
+      <section class="hero" id="home">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">About Suvella</span>
+            <h1>Happy to present</h1>
+            <p class="lead">
+              SUVELLA là thương hiệu dành cho các tín đồ đam mê đồ ngọt. Suvella
+              luôn mang đến những chiếc bánh được làm tươi mỗi ngày, chứa đựng
+              cả sự ngọt ngào và tấm lòng chân thành gửi gắm đến khách hàng. Với
+              slogan “Happy to Present”, Suvella mong muốn đem lại những trải
+              nghiệm ý nghĩa cho những phút giây hiện tại.
+            </p>
+            <div class="card-actions">
+              <a class="btn" href="#shop">Xem menu bánh</a>
+              <a class="btn secondary" href="#blog">Đọc blog</a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <img
+              class="hero-image"
+              src="cacloaibanh.webp"
+              alt="Bánh SUVELLA"
+              width="1200"
+              height="900"
+            />
+          </div>
+        </div>
+      </section>
+      <section id="shop">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Suvella Cake</span>
+              <h2>Menu bánh tươi mỗi ngày</h2>
+            </div>
+          </div>
+          <div class="products-toolbar">
+            <input
+              class="search-box"
+              id="searchInput"
+              placeholder="Bạn muốn ăn bánh gì hôm nay?"
+            />
+            <select class="filter-box" id="categoryFilter">
+              <option value="all">Tất cả danh mục</option>
+              <option value="Bánh Su Sing">Bánh Su Sing</option>
+              <option value="Bánh Bông lan">Bánh Bông lan</option>
+              <option value="Bánh Tiramisu">Bánh Tiramisu</option>
+              <option value="Bánh Red Velvet">Bánh Red Velvet</option>
+              <option value="Bánh Mousse">Bánh Mousse</option>
+            </select>
+          </div>
+          <div class="product-grid" id="productGrid"></div>
+        </div>
+      </section>
+      <section id="blog">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Suvella Blog</span>
+              <h2>Góc ngọt ngào</h2>
+            </div>
+          </div>
+          <div class="blog-grid" id="blogGrid"></div>
+        </div>
+      </section>
+      <section id="contact">
+        <div class="container contact-grid">
+          <div class="panel">
+            <span class="eyebrow">Suvella for you</span>
+            <h2>Tư vấn đặt bánh theo yêu cầu</h2>
+            <p class="lead">
+              Bánh ngọt chính là những khoảnh khắc. Hãy để Suvella đồng hành
+              cùng bạn trong mọi phút giây đặc biệt.
+            </p>
+            <p><b>Số điện thoại:</b> 0346 149 206</p>
+            <p><b>Email:</b> suvella2212@gmail.com</p>
+          </div>
+          <form class="panel form" id="contactForm">
+            <input required placeholder="Tên của bạn" />
+            <input required placeholder="SĐT của bạn" />
+            <select required>
+              <option value="" selected disabled>Số lượng bánh dự kiến</option>
+              <option>20-50 chiếc</option>
+              <option>50-200 chiếc</option>
+              <option>200-500 chiếc</option>
+              <option>500-1000 chiếc</option>
+            </select>
+            <select required>
+              <option value="" selected disabled>
+                Loại bánh bạn mong muốn
+              </option>
+              <option>Bánh Su Sing mini</option>
+              <option>Bánh Tiramisu mini</option>
+              <option>Bánh Mousse mini</option>
+            </select>
+            <textarea placeholder="Một số yêu cầu chi tiết"></textarea>
+            <button class="btn" type="submit">Gửi yêu cầu</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <section class="blog-page" id="articlePage">
+      <div class="container">
+        <article class="article" id="articleContent"></article>
+      </div>
+    </section>
+    <footer>
+      <div class="container">
+        <div class="footer-brand">
+          <img src="logo.webp" alt="SUVELLA logo" />
+          <span class="brand-name">SUVELLA</span>
+        </div>
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>Contact</h3>
+            <div class="footer-list">
+              <a class="footer-link" href="tel:0346149206"
+                ><span class="footer-icon"
+                  ><img
+                    src="https://api.iconify.design/lucide:phone.svg?color=%23fee1e2"
+                    alt=""
+                    aria-hidden="true" /></span
+                ><span>0346 149 206</span></a
+              >
+              <a
+                class="footer-link"
+                href="https://zalo.me/0346149206"
+                target="_blank"
+                rel="noopener"
+                ><span class="footer-icon"
+                  ><img
+                    src="https://api.iconify.design/simple-icons:zalo.svg?color=%23fee1e2"
+                    alt=""
+                    aria-hidden="true" /></span
+                ><span>0346 149 206</span></a
+              >
+              <a class="footer-link" href="mailto:suvella2212@gmail.com"
+                ><span class="footer-icon"
+                  ><img
+                    src="https://api.iconify.design/simple-icons:gmail.svg?color=%23fee1e2"
+                    alt=""
+                    aria-hidden="true" /></span
+                ><span>suvella2212@gmail.com</span></a
+              >
+            </div>
+          </div>
+          <div class="footer-col">
+            <h3>Social</h3>
+            <div class="footer-list">
+              <a
+                class="footer-link"
+                href="https://facebook.com/Suvella.happytopresent"
+                target="_blank"
+                rel="noopener"
+                ><span class="footer-icon"
+                  ><img
+                    src="https://api.iconify.design/simple-icons:facebook.svg?color=%23fee1e2"
+                    alt=""
+                    aria-hidden="true" /></span
+                ><span>Suvella</span></a
+              >
+              <a
+                class="footer-link"
+                href="https://instagram.com/_suvella.happytopresent_/"
+                target="_blank"
+                rel="noopener"
+                ><span class="footer-icon"
+                  ><img
+                    src="https://api.iconify.design/simple-icons:instagram.svg?color=%23fee1e2"
+                    alt=""
+                    aria-hidden="true" /></span
+                ><span>_suvella.happytopresent_</span></a
+              >
+              <a
+                class="footer-link"
+                href="https://threads.com/_suvella.happytopresent_"
+                target="_blank"
+                rel="noopener"
+                ><span class="footer-icon"
+                  ><img
+                    src="https://api.iconify.design/simple-icons:threads.svg?color=%23fee1e2"
+                    alt=""
+                    aria-hidden="true" /></span
+                ><span>_suvella.happytopresent_</span></a
+              >
+            </div>
+          </div>
+          <div class="footer-col">
+            <h3>Đối tác chiến lược</h3>
+            <div class="footer-list">
+              <a
+                class="footer-link footer-partner"
+                href="https://tlu.edu.vn"
+                target="_blank"
+                rel="noopener"
+                ><img
+                  src="truong.webp"
+                  alt="Trường Đại học Thủy lợi logo"
+                /><span>Trường Đại học Thủy lợi</span></a
+              >
+              <a
+                class="footer-link footer-partner"
+                href="https://fem.tlu.edu.vn"
+                target="_blank"
+                rel="noopener"
+                ><img src="khoa.webp" alt="Khoa Kinh tế và Quản lý logo" /><span
+                  >Khoa Kinh tế và Quản lý</span
+                ></a
+              >
+              <a
+                class="footer-link footer-partner"
+                href="https://fem.tlu.edu.vn/bm-thuong-mai-dien-tu"
+                target="_blank"
+                rel="noopener"
+                ><img src="bm.webp" alt="Bộ môn Thương mại điện tử logo" /><span
+                  >Bộ môn Thương mại điện tử</span
+                ></a
+              >
+            </div>
+          </div>
+          <div class="footer-col footer-student">
+            <h3>Bài tập thiết kế giao diện website</h3>
+            <p><b>Họ và tên:</b> Nguyễn Trần Anh</p>
+            <p><b>MSV:</b> 2454053678</p>
+            <p><b>Lớp:</b> 66TMĐT2</p>
+            <p><b>Học phần:</b> Đồ họa Web</p>
+            <p><b>GVHD:</b> Th.S Đỗ Thị Dịu</p>
+          </div>
+        </div>
+        <div class="footer-copy">© 2025 SUVELLA. All rights reserved.</div>
+      </div>
+    </footer>
+    <div class="cart-drawer" id="cartDrawer">
+      <div class="cart-head">
+        <h3>Giỏ hàng</h3>
+        <button
+          class="modal-close cart-close"
+          id="closeCart"
+          aria-label="Đóng giỏ hàng"
+        >
+          ×
+        </button>
+      </div>
+      <div class="cart-list" id="cartList"></div>
+      <div class="cart-foot">
+        <div class="total-row">
+          <span>Tổng số tiền</span><span id="cartTotal">0đ</span>
+        </div>
+        <button class="btn" style="width: 100%" id="checkoutBtn">
+          Xác nhận đặt bánh
+        </button>
+      </div>
+    </div>
+    <div class="modal" id="productModal">
+      <div class="modal-box">
+        <button class="modal-close" data-close="productModal">×</button>
+        <div class="product-detail" id="productDetail"></div>
+      </div>
+    </div>
+    <div class="modal" id="checkoutModal">
+      <div class="modal-box">
+        <button class="modal-close" data-close="checkoutModal">×</button>
+        <div class="product-detail">
+          <div>
+            <span class="eyebrow">Suvella is coming</span>
+            <h2>Xác nhận đơn hàng</h2>
+            <div class="panel">
+              <div class="checkout-list" id="checkoutSummary"></div>
+              <div class="total-row">
+                <span>Tổng</span><span id="checkoutTotal">0đ</span>
+              </div>
+            </div>
+          </div>
+          <form class="form" id="checkoutForm">
+            <input required id="customerName" placeholder="Tên của bạn" /><input
+              required
+              id="customerPhone"
+              placeholder="SĐT của bạn"
+            /><input
+              id="customerEmail"
+              type="email"
+              placeholder="Email của bạn"
+            /><input
+              required
+              id="customerAddress"
+              placeholder="Địa chỉ nhận bánh"
+            />
+            <textarea
+              id="orderNote"
+              placeholder="Một số yêu cầu chi tiết"
+            ></textarea>
+            <div class="panel qr-panel">
+              <img id="paymentQr" src="" alt="QR chuyển khoản Techcombank" />
+              <div class="bank-info">
+                <span>Ngân hàng: <b>Techcombank</b></span>
+                <span>Số tài khoản: <b>868366866868</b></span>
+                <span>Chủ tài khoản: <b>NGUYENTRANANH</b></span>
+                <span>Số tiền: <b id="transferAmount">0đ</b></span>
+                <span>Nội dung: <b id="transferContent">DH000</b></span>
+              </div>
+            </div>
+            <button class="btn" type="submit">Xác nhận đặt hàng</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script>
+      const products = [
+        {
+          id: 1,
+          name: "Bánh Su Sing vani",
+          cat: "Bánh Su Sing",
+          price: 50000,
+          image: "banhsusingvani.webp",
+          desc: "Lớp vỏ mềm, nhân kem dịu nhẹ, phù hợp cho bữa xế hoặc hộp quà nhỏ.",
+        },
+        {
+          id: 2,
+          name: "Bánh Su Sing matcha",
+          cat: "Bánh Su Sing",
+          price: 55000,
+          image: "banhsusingmatcha.webp",
+          desc: "Vị matcha thơm nhẹ, cân bằng với phần kem mịn, không quá ngọt.",
+        },
+        {
+          id: 3,
+          name: "Bánh Su Sing socola",
+          cat: "Bánh Su Sing",
+          price: 55000,
+          image: "banhsusingsocola.webp",
+          desc: "Hương cacao ấm, hợp với những ngày cần một món bánh nhỏ nhưng đậm vị.",
+        },
+        {
+          id: 4,
+          name: "Bánh Su Sing trân châu đường đen",
+          cat: "Bánh Su Sing",
+          price: 60000,
+          image: "banhsusingtranchauduongden.webp",
+          desc: "Một phiên bản vui hơn với topping dai nhẹ và mùi đường đen thơm.",
+        },
+        {
+          id: 5,
+          name: "Bánh Bông lan trứng muối",
+          cat: "Bánh Bông lan",
+          price: 50000,
+          image: "banhbonglantrungmuoi.webp",
+          desc: "Bông lan mềm, sốt béo nhẹ và trứng muối mằn mặn cân bằng.",
+        },
+        {
+          id: 6,
+          name: "Bánh Bông lan matcha việt quất",
+          cat: "Bánh Bông lan",
+          price: 55000,
+          image: "banhbonglanmatchavietquat.webp",
+          desc: "Nền matcha thanh, điểm thêm vị việt quất chua nhẹ cho hậu vị tươi hơn.",
+        },
+        {
+          id: 7,
+          name: "Bánh Tiramisu truyền thống",
+          cat: "Bánh Tiramisu",
+          price: 65000,
+          image: "banhtiramisutruyenthong.webp",
+          desc: "Kem mềm, cacao thơm và vị béo dịu, hợp cho buổi chiều oi ả.",
+        },
+        {
+          id: 8,
+          name: "Bánh Tiramisu matcha",
+          cat: "Bánh Tiramisu",
+          price: 65000,
+          image: "banhtiramisumatcha.webp",
+          desc: "Tiramisu phong cách matcha, thanh hơn và rất hợp với trà lạnh.",
+        },
+        {
+          id: 9,
+          name: "Bánh Red Velvet",
+          cat: "Bánh Red Velvet",
+          price: 50000,
+          image: "banhredvelvet.webp",
+          desc: "Cốt bánh mềm, cream cheese nhẹ, là lựa chọn signature cho dịp nhỏ.",
+        },
+        {
+          id: 10,
+          name: "Bánh Mousse matcha",
+          cat: "Bánh Mousse",
+          price: 40000,
+          image: "banhmoussematcha.webp",
+          desc: "Mousse mịn, mát, vị matcha rõ nhưng không gắt.",
+        },
+        {
+          id: 11,
+          name: "Bánh Mousse chanh leo",
+          cat: "Bánh Mousse",
+          price: 40000,
+          image: "banhmoussechanhleo.webp",
+          desc: "Chua ngọt tươi, phù hợp khi muốn một món tráng miệng nhẹ miệng.",
+        },
+        {
+          id: 12,
+          name: "Bánh Mousse việt quất",
+          cat: "Bánh Mousse",
+          price: 40000,
+          image: "banhmoussevietquat.webp",
+          desc: "Vị berry mềm mại, màu sắc xinh và dễ dùng cho tiệc nhỏ.",
+        },
+      ];
+      const articles = [
+        {
+          id: 1,
+          slug: "blog-1",
+          title: "Lorem ipsum dolor si",
+          excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          date: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          html: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et d</p>`,
+        },
+        {
+          id: 2,
+          slug: "blog-2",
+          title: "Lorem ipsum dolor si",
+          excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          date: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          html: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et d</p>`,
+        },
+        {
+          id: 3,
+          slug: "blog-3",
+          title: "Lorem ipsum dolor si",
+          excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          date: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          html: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et d</p>`,
+        },
+      ];
+      const fmt = (n) => n.toLocaleString("vi-VN") + "đ";
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+      let cart = JSON.parse(localStorage.getItem("suvella_cart") || "[]");
+      cart = cart.filter((item) =>
+        products.some((product) => product.id === item.id),
+      );
+      let currentQty = 1;
+      function renderProducts() {
+        const q = $("#searchInput").value.toLowerCase();
+        const cat = $("#categoryFilter").value;
+        const list = products.filter(
+          (p) =>
+            (cat === "all" || p.cat === cat) &&
+            p.name.toLowerCase().includes(q),
+        );
+        $("#productGrid").innerHTML =
+          list
+            .map(
+              (p) =>
+                `<article class="card"><div class="product-img"><img class="product-photo" src="${p.image}" alt="${p.name}" width="1200" height="900" loading="lazy"></div><div class="product-body"><h3>${p.name}</h3><p>${p.desc}</p><div class="price">${fmt(p.price)}</div><div class="card-actions"><button class="btn secondary" onclick="openProduct(${p.id})">Xem chi tiết</button><button class="btn" onclick="addToCart(${p.id})">Thêm vào giỏ</button></div></div></article>`,
+            )
+            .join("") || "<p>Không tìm thấy sản phẩm phù hợp.</p>";
+      }
+      function getBlogImage(article, index = articles.indexOf(article)) {
+        return `blog${index + 1}.webp`;
+      }
+      function renderBlogs() {
+        $("#blogGrid").innerHTML = articles
+          .map(
+            (a, i) =>
+              `<article class="card blog-card"><div class="product-img"><img class="product-photo" src="${getBlogImage(a, i)}" alt="${a.title}" width="1200" height="900" loading="lazy"></div><div class="product-body"><div class="blog-meta">${a.date}</div><h3>${a.title}</h3><p>${a.excerpt}</p><button class="btn secondary" onclick="openArticle('${a.slug}')">Đọc thêm</button></div></article>`,
+          )
+          .join("");
+      }
+      function openProduct(id) {
+        const p = products.find((x) => x.id === id);
+        const bestSellerIds = new Set([1, 7, 9]);
+        const productLabel = bestSellerIds.has(p.id)
+          ? "Suvella's best seller"
+          : "Suvella's must try";
+        currentQty = 1;
+        $("#productDetail").innerHTML =
+          `<div class="product-img detail-img"><img class="product-photo" src="${p.image}" alt="${p.name}" width="1200" height="900"></div><div><span class="eyebrow">${productLabel}</span><h2>${p.name}</h2><p class="lead">${p.desc}</p><div class="price">${fmt(p.price)}</div><div class="qty"><button onclick="changeCurrentQty(-1)">−</button><strong id="currentQty">1</strong><button onclick="changeCurrentQty(1)">+</button></div><button class="btn" onclick="addToCart(${p.id},currentQty);closeModal('productModal')">Thêm vào giỏ</button></div>`;
+        openModal("productModal");
+      }
+      function changeCurrentQty(n) {
+        currentQty = Math.max(1, currentQty + n);
+        $("#currentQty").textContent = currentQty;
+      }
+      function addToCart(id, qty = 1) {
+        const found = cart.find((i) => i.id === id);
+        if (found) found.qty += qty;
+        else cart.push({ id, qty });
+        saveCart();
+        toast("Bánh đã được thêm vào giỏ hàng");
+      }
+      function saveCart() {
+        localStorage.setItem("suvella_cart", JSON.stringify(cart));
+        renderCart();
+      }
+      function getCartTotal() {
+        return cart.reduce(
+          (s, i) => s + products.find((p) => p.id === i.id).price * i.qty,
+          0,
+        );
+      }
+      function getTransferContent() {
+        const d = new Date();
+        const yy = String(d.getFullYear()).slice(-2);
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        const dd = String(d.getDate()).padStart(2, "0");
+        return `${yy}${mm}${dd}DH000`;
+      }
+      function updatePaymentQr(total = getCartTotal()) {
+        const qr = $("#paymentQr");
+        if (!qr) return;
+        const content = getTransferContent();
+        const bank = "TCB";
+        const account = "868366866868";
+        qr.src = `https://img.vietqr.io/image/${bank}-${account}-compact2.png?amount=${total}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent("SUVELLA")}`;
+        $("#transferAmount").textContent = fmt(total);
+        $("#transferContent").textContent = content;
+      }
+      function renderCart() {
+        const total = getCartTotal();
+        $("#cartCount").textContent = cart.reduce((s, i) => s + i.qty, 0);
+        $("#cartTotal").textContent = fmt(total);
+        $("#checkoutTotal").textContent = fmt(total);
+        $("#checkoutSummary").innerHTML = cart.length
+          ? `<div class="checkout-list-row checkout-list-head"><span>Sản phẩm</span><span>Đơn giá</span><span>Số lượng</span><span>Thành tiền</span></div>${cart
+              .map((i) => {
+                const p = products.find((product) => product.id === i.id);
+                return `<div class="checkout-list-row"><span>${p.name}</span><span>${fmt(p.price)}</span><span>${i.qty}</span><span>${fmt(p.price * i.qty)}</span></div>`;
+              })
+              .join("")}`
+          : `<div class="checkout-list-row"><span>Giỏ hàng đang trống, bạn hãy chọn vài món bánh nha!</span><span>0đ</span><span>0</span><span>0đ</span></div>`;
+        updatePaymentQr(total);
+        $("#cartList").innerHTML = cart.length
+          ? cart
+              .map((i) => {
+                const p = products.find((x) => x.id === i.id);
+                return `<div class="cart-item"><div class="thumb"><img src="${p.image}" alt="${p.name}" width="900" height="900" loading="lazy"></div><div><h4>${p.name}</h4><p>${fmt(p.price)} • ${p.cat}</p><div class="cart-controls"><button onclick="updateQty(${p.id},-1)">−</button><span>${i.qty}</span><button onclick="updateQty(${p.id},1)">+</button></div></div><button class="remove" onclick="removeItem(${p.id})">×</button></div>`;
+              })
+              .join("")
+          : "<p>Giỏ hàng đang trống, hãy chọn vài món bánh nha!</p>";
+      }
+      function updateQty(id, n) {
+        const item = cart.find((i) => i.id === id);
+        if (!item) return;
+        item.qty += n;
+        if (item.qty <= 0) cart = cart.filter((i) => i.id !== id);
+        saveCart();
+      }
+      function removeItem(id) {
+        cart = cart.filter((i) => i.id !== id);
+        saveCart();
+      }
+      function openArticle(slug) {
+        const a = articles.find((x) => x.slug === slug);
+        history.pushState(null, "", "#article-" + slug);
+        $("#siteMain").classList.add("hidden");
+        $("#articlePage").classList.add("show");
+        $("#articleContent").innerHTML =
+          `<button class="btn secondary" onclick="backToSite()">← Quay lại Blog</button><div class="blog-meta" style="margin-top:26px">${a.date}</div><h1>${a.title}</h1><div class="article-cover"><img src="${getBlogImage(a)}" alt="${a.title}" width="1200" height="900" loading="lazy"></div>${a.html}<div style="margin-top:32px"><a class="btn" href="#shop" onclick="backToSite()">Xem menu bánh</a></div>`;
+        window.scrollTo(0, 0);
+      }
+      function backToSite() {
+        history.pushState(null, "", "#blog");
+        $("#articlePage").classList.remove("show");
+        $("#siteMain").classList.remove("hidden");
+        setTimeout(() => document.querySelector("#blog").scrollIntoView(), 0);
+      }
+      function openModal(id) {
+        $("#" + id).classList.add("show");
+      }
+      function closeModal(id) {
+        $("#" + id).classList.remove("show");
+      }
+      function toast(msg) {
+        $("#toast").textContent = msg;
+        $("#toast").classList.add("show");
+        setTimeout(() => $("#toast").classList.remove("show"), 2200);
+      }
+      $("#searchInput").addEventListener("input", renderProducts);
+      $("#categoryFilter").addEventListener("change", renderProducts);
+      $("#openCart").onclick = () => $("#cartDrawer").classList.add("show");
+      $("#closeCart").onclick = () => $("#cartDrawer").classList.remove("show");
+      $("#checkoutBtn").onclick = () => {
+        if (!cart.length) {
+          toast("Giỏ hàng đang trống, bạn hãy chọn vài món bánh nha!");
+          return;
+        }
+        updatePaymentQr();
+        openModal("checkoutModal");
+      };
+      $$("[data-close]").forEach(
+        (b) => (b.onclick = () => closeModal(b.dataset.close)),
+      );
+      $$(".modal").forEach((m) =>
+        m.addEventListener("click", (e) => {
+          if (e.target === m) m.classList.remove("show");
+        }),
+      );
+      $("#checkoutForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        cart = [];
+        saveCart();
+        closeModal("checkoutModal");
+        $("#cartDrawer").classList.remove("show");
+        toast(
+          "Suvella đã nhận được đơn hàng của bạn. Hãy chờ đợi để được thưởng thức những chiếc bánh ngọt ngào nha!",
+        );
+      });
+      $("#contactForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        e.target.reset();
+        toast(
+          "Suvella đã nhận được yêu cầu từ bạn. Suvella sẽ liên hệ lại bạn trong thời gian sớm nhất!",
+        );
+      });
+      $("#hamb").onclick = () => $("#menu").classList.toggle("show");
+      $$("#menu a").forEach(
+        (a) => (a.onclick = () => $("#menu").classList.remove("show")),
+      );
+      window.addEventListener("popstate", () => {
+        if (location.hash.startsWith("#article-"))
+          openArticle(location.hash.replace("#article-", ""));
+        else {
+          $("#articlePage").classList.remove("show");
+          $("#siteMain").classList.remove("hidden");
+        }
+      });
+      let bannerIndex = 0;
+      const bannerTrack = document.querySelector("#bannerTrack");
+      const bannerDots = document.querySelectorAll(".banner-dot");
+      const bannerCount = bannerDots.length;
+      let bannerTimer;
+      function setBannerPosition(index, animate = true) {
+        bannerTrack.style.transition = animate
+          ? "transform 1.05s cubic-bezier(0.65, 0, 0.35, 1)"
+          : "none";
+        bannerTrack.style.transform = `translateX(-${index * 100}%)`;
+      }
+      function updateBannerDots(index) {
+        const activeIndex = index % bannerCount;
+        bannerDots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === activeIndex);
+        });
+      }
+      function showBanner(index) {
+        bannerIndex = index;
+        setBannerPosition(index);
+        updateBannerDots(index);
+      }
+      function nextBanner() {
+        showBanner(bannerIndex + 1);
+      }
+      bannerTrack.addEventListener("transitionend", () => {
+        if (bannerIndex === bannerCount) {
+          bannerIndex = 0;
+          bannerTrack.style.transition = "none";
+          bannerTrack.style.transform = "translateX(0)";
+          bannerTrack.offsetHeight;
+          bannerTrack.style.transition =
+            "transform 1.05s cubic-bezier(0.65, 0, 0.35, 1)";
+        }
+      });
+      bannerDots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          clearInterval(bannerTimer);
+          showBanner(Number(dot.dataset.slide));
+          bannerTimer = setInterval(nextBanner, 4300);
+        });
+      });
+      setBannerPosition(0, false);
+      bannerTimer = setInterval(nextBanner, 4300);
+      renderProducts();
+      renderBlogs();
+      renderCart();
+      if (location.hash.startsWith("#article-"))
+        openArticle(location.hash.replace("#article-", ""));
+    </script>
+  </body>
+</html>
+
