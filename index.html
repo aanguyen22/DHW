@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -13,14 +13,11 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@600;700;800;900&display=swap");
       :root {
-        --yellow: #ffc471;
         --pink: #fee1e2;
         --cream: #fdfaf0;
-        --green: #b5d8a1;
         --blue: #305eb6;
         --ink: #17325c;
         --muted: #66708a;
-        --white: #ffffff;
         --line: rgba(48, 94, 182, 0.22);
         --shadow: 0 18px 45px rgba(23, 50, 92, 0.1);
         --radius: 28px;
@@ -109,6 +106,7 @@
       .banner-slider {
         position: relative;
         width: 100%;
+        aspect-ratio: 8 / 3;
         overflow: hidden;
         border-radius: 28px;
         border: 1px solid var(--line);
@@ -119,11 +117,17 @@
         display: flex;
         transition: transform 1.05s cubic-bezier(0.65, 0, 0.35, 1);
         will-change: transform;
+        height: 100%;
+      }
+      .banner-slide {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        display: block;
       }
       .banner-track img {
         width: 100%;
-        flex: 0 0 100%;
-        height: clamp(220px, 34vw, 460px);
+        height: 100%;
         object-fit: cover;
         object-position: center;
       }
@@ -387,6 +391,9 @@
         outline: none;
         min-width: 250px;
       }
+      .search-box {
+        min-width: 360px;
+      }
       .product-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -484,9 +491,6 @@
         margin-top: auto;
         align-self: flex-start;
       }
-      .blog-card-cover::after {
-        display: none;
-      }
       .blog-meta {
         font-size: 12px;
         font-weight: 900;
@@ -549,7 +553,7 @@
       }
       .form textarea {
         min-height: 120px;
-        resize: vertical;
+        resize: none;
       }
       .form input:focus,
       .form textarea:focus,
@@ -598,8 +602,7 @@
         display: grid;
         gap: 12px;
       }
-      .footer-link,
-      .footer-info-row {
+      .footer-link {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -624,7 +627,7 @@
         object-fit: contain;
       }
       .footer-partner {
-        align-items: flex-start;
+        align-items: center;
       }
       .footer-partner img {
         width: 38px;
@@ -693,8 +696,12 @@
         gap: 20px;
         padding: 26px;
       }
-      .product-detail .product-photo {
+      .product-detail .detail-img {
         border-radius: 24px;
+        overflow: hidden;
+      }
+      .product-detail .product-photo {
+        border-radius: inherit;
       }
       .qty {
         display: flex;
@@ -739,6 +746,11 @@
         justify-content: space-between;
         padding: 0 22px;
         border-bottom: 1px solid var(--line);
+        position: relative;
+      }
+      .cart-close {
+        position: static;
+        flex: 0 0 44px;
       }
       .cart-list {
         padding: 18px;
@@ -759,7 +771,7 @@
       .thumb {
         width: 58px;
         height: 58px;
-        border-radius: 18px;
+        border-radius: 26px;
         background: var(--pink);
         display: block;
         overflow: hidden;
@@ -769,6 +781,7 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
+        border-radius: inherit;
         display: block;
       }
       .cart-item h4 {
@@ -812,6 +825,29 @@
         margin-bottom: 14px;
         color: var(--blue);
       }
+      .checkout-list {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .checkout-list-row {
+        display: grid;
+        grid-template-columns: 1.4fr 96px 72px 104px;
+        gap: 14px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .checkout-list-head {
+        color: var(--blue);
+        font-weight: 900;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+      .checkout-list-row span:nth-child(n + 2) {
+        text-align: right;
+        font-weight: 800;
+      }
       .blog-page {
         display: none;
         padding: 96px 0;
@@ -849,9 +885,6 @@
         position: relative;
         overflow: hidden;
       }
-      .article-cover:after {
-        display: none;
-      }
       .article-cover img {
         width: 100%;
         height: 100%;
@@ -864,10 +897,14 @@
         left: 50%;
         bottom: 28px;
         transform: translateX(-50%) translateY(30px);
-        background: var(--blue);
+        background: rgba(48, 94, 182, 0.88);
         color: #fff;
         border-radius: 999px;
         padding: 14px 20px;
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        box-shadow: 0 18px 44px rgba(23, 50, 92, 0.22);
+        isolation: isolate;
         font-weight: 900;
         z-index: 200;
         opacity: 0;
@@ -877,6 +914,36 @@
       .toast.show {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
+      }
+      .toast::before {
+        content: "";
+        position: absolute;
+        inset: -34px -46px;
+        border-radius: inherit;
+        backdrop-filter: blur(34px);
+        -webkit-backdrop-filter: blur(34px);
+        background: rgba(255, 255, 255, 0.18);
+        opacity: 0;
+        pointer-events: none;
+        z-index: -1;
+        mask-image: radial-gradient(
+          ellipse at center,
+          #000 0%,
+          rgba(0, 0, 0, 0.72) 42%,
+          rgba(0, 0, 0, 0.28) 68%,
+          transparent 100%
+        );
+        -webkit-mask-image: radial-gradient(
+          ellipse at center,
+          #000 0%,
+          rgba(0, 0, 0, 0.72) 42%,
+          rgba(0, 0, 0, 0.28) 68%,
+          transparent 100%
+        );
+        transition: opacity 0.28s;
+      }
+      .toast.show::before {
+        opacity: 1;
       }
       .hidden {
         display: none !important;
@@ -889,6 +956,9 @@
         }
         .footer-grid {
           grid-template-columns: repeat(2, 1fr);
+        }
+        .search-box {
+          min-width: 360px;
         }
         .product-grid {
           grid-template-columns: repeat(2, 1fr);
@@ -925,9 +995,6 @@
         .banner-slider {
           border-radius: 22px;
         }
-        .banner-track img {
-          height: clamp(190px, 44vw, 340px);
-        }
       }
       @media (max-width: 560px) {
         .container {
@@ -955,6 +1022,9 @@
         .footer-grid {
           grid-template-columns: 1fr;
         }
+        .search-box {
+          min-width: 360px;
+        }
         .product-grid {
           grid-template-columns: 1fr;
         }
@@ -974,9 +1044,6 @@
         }
         .banner-slider {
           border-radius: 18px;
-        }
-        .banner-track img {
-          height: 210px;
         }
         .banner-dot {
           bottom: 12px;
@@ -1013,14 +1080,46 @@
         <div class="container">
           <div class="banner-slider">
             <div class="banner-track" id="bannerTrack">
-              <img src="banner1.webp" alt="SUVELLA banner 1" />
-              <img src="banner2.webp" alt="SUVELLA banner 2" />
-              <img src="banner3.webp" alt="SUVELLA banner 3" />
-              <img
-                src="banner1.webp"
-                alt="SUVELLA banner 1 duplicate"
+              <a class="banner-slide" href="#shop">
+                <img
+                  src="banner1.webp"
+                  alt="SUVELLA banner 1"
+                  width="1920"
+                  height="720"
+                />
+              </a>
+              <a class="banner-slide" href="#shop">
+                <img
+                  src="banner2.webp"
+                  alt="SUVELLA banner 2"
+                  width="1920"
+                  height="720"
+                />
+              </a>
+              <a
+                class="banner-slide"
+                href="#article-nhung-chiec-banh-signature"
+              >
+                <img
+                  src="banner3.webp"
+                  alt="SUVELLA banner 3"
+                  width="1920"
+                  height="720"
+                />
+              </a>
+              <a
+                class="banner-slide"
+                href="#shop"
                 aria-hidden="true"
-              />
+                tabindex="-1"
+              >
+                <img
+                  src="banner1.webp"
+                  alt="SUVELLA banner 1 duplicate"
+                  width="1920"
+                  height="720"
+                />
+              </a>
             </div>
             <button class="banner-dot active" data-slide="0"></button>
             <button class="banner-dot" data-slide="1"></button>
@@ -1233,8 +1332,8 @@
                 href="https://fem.tlu.edu.vn"
                 target="_blank"
                 rel="noopener"
-                ><img src="khoa.webp" alt="Khoa Kinh tế & Quản lý logo" /><span
-                  >Khoa Kinh tế &amp; Quản lý</span
+                ><img src="khoa.webp" alt="Khoa Kinh tế và Quản lý logo" /><span
+                  >Khoa Kinh tế và Quản lý</span
                 ></a
               >
               <a
@@ -1249,6 +1348,7 @@
             </div>
           </div>
           <div class="footer-col footer-student">
+            <h3>Bài tập thiết kế giao diện website</h3>
             <p><b>Họ và tên:</b> Nguyễn Trần Anh</p>
             <p><b>MSV:</b> 2454053678</p>
             <p><b>Lớp:</b> 66TMĐT2</p>
@@ -1262,7 +1362,13 @@
     <div class="cart-drawer" id="cartDrawer">
       <div class="cart-head">
         <h3>Giỏ hàng</h3>
-        <button class="btn secondary" id="closeCart">Đóng</button>
+        <button
+          class="modal-close cart-close"
+          id="closeCart"
+          aria-label="Đóng giỏ hàng"
+        >
+          ×
+        </button>
       </div>
       <div class="cart-list" id="cartList"></div>
       <div class="cart-foot">
@@ -1270,7 +1376,7 @@
           <span>Tổng số tiền</span><span id="cartTotal">0đ</span>
         </div>
         <button class="btn" style="width: 100%" id="checkoutBtn">
-          Đặt bánh ngay
+          Xác nhận đặt bánh
         </button>
       </div>
     </div>
@@ -1285,13 +1391,13 @@
         <button class="modal-close" data-close="checkoutModal">×</button>
         <div class="product-detail">
           <div>
-            <span class="eyebrow">Suvella are coming</span>
+            <span class="eyebrow">Suvella is coming</span>
             <h2>Xác nhận đơn hàng</h2>
             <div class="panel">
+              <div class="checkout-list" id="checkoutSummary"></div>
               <div class="total-row">
-                <span>Tạm tính</span><span id="checkoutTotal">0đ</span>
+                <span>Tổng</span><span id="checkoutTotal">0đ</span>
               </div>
-              <p id="checkoutSummary"></p>
             </div>
           </div>
           <form class="form" id="checkoutForm">
@@ -1430,39 +1536,33 @@
       const articles = [
         {
           id: 1,
-          slug: "cach-chon-banh-sinh-nhat-phu-hop",
-          title: "Cách chọn bánh sinh nhật phù hợp cho từng dịp",
-          keyword: "bánh sinh nhật phù hợp",
-          excerpt:
-            "Gợi ý chọn kích thước, hương vị và phong cách bánh sinh nhật theo số lượng khách, độ tuổi và concept bữa tiệc.",
-          date: "24.04.2026",
-          html: `<p><strong>Bánh sinh nhật phù hợp</strong> không chỉ là chiếc bánh đẹp để chụp ảnh, mà còn phải vừa miệng, đúng số lượng khách và hòa với tinh thần của bữa tiệc. Khi chọn bánh, nhiều người thường chỉ nhìn mẫu trang trí trước, nhưng thực tế hương vị, kích thước và cách phục vụ mới là những yếu tố quyết định trải nghiệm.</p><h2>1. Chọn bánh theo số lượng khách</h2><p>Với tiệc nhỏ từ 4–6 người, một chiếc bánh size mini hoặc hộp bánh phần nhỏ sẽ giúp tránh lãng phí. Với nhóm 8–12 người, em nên chọn bánh cỡ vừa, dễ cắt và có hương vị đại chúng như tiramisu, red velvet hoặc bông lan trứng muối. Nếu tiệc đông hơn, có thể kết hợp một bánh chính với các phần bánh nhỏ.</p><h2>2. Chọn hương vị theo độ tuổi</h2><p>Trẻ em thường thích vị socola, dâu, kem sữa hoặc những chiếc bánh có tạo hình dễ thương. Người lớn lại dễ thích bánh ít ngọt, vị matcha, cà phê, mousse trái cây hoặc tiramisu. Nếu bữa tiệc có nhiều nhóm tuổi, hãy chọn hương vị cân bằng, không quá béo và không quá ngọt.</p><h2>3. Chọn phong cách theo concept</h2><p>Một bữa tiệc tối giản sẽ hợp bánh màu kem, hồng nhạt hoặc xanh pastel. Tiệc vui tươi có thể chọn bánh với màu vàng ấm, topping trái cây hoặc hình vẽ mascot. Với SUVELLA, tinh thần playful-premium giúp bánh vừa đáng yêu vừa có cảm giác chỉn chu.</p><h2>4. Gợi ý từ SUVELLA</h2><p>Nếu cần món bánh dễ ăn, Red Velvet và Tiramisu là lựa chọn an toàn. Nếu muốn mát nhẹ, Mousse chanh leo hoặc Mousse việt quất sẽ hợp hơn. Với tiệc nhỏ hoặc buổi chiều thư giãn, các dòng Su Sing là lựa chọn đáng thử.</p><p>Để tìm <strong>bánh sinh nhật phù hợp</strong>, hãy bắt đầu từ số khách, khẩu vị và cảm xúc em muốn tạo ra trong bữa tiệc. Một chiếc bánh đúng không cần quá cầu kỳ, chỉ cần đủ ngon, đủ đẹp và đủ đúng với khoảnh khắc đó.</p>`,
+          slug: "blog-1",
+          title: "Lorem ipsum dolor si",
+          excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          date: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          html: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et d</p>`,
         },
         {
           id: 2,
-          slug: "vi-sao-banh-handmade-dac-biet-hon",
-          title: "Vì sao bánh handmade luôn mang cảm giác đặc biệt hơn?",
-          keyword: "bánh handmade",
-          excerpt:
-            "Bánh handmade tạo cảm giác gần gũi nhờ sự chăm chút trong từng mẻ bánh, từng lớp kem và từng chi tiết nhỏ.",
-          date: "24.04.2026",
-          html: `<p><strong>Bánh handmade</strong> thường được yêu thích vì cảm giác gần gũi và có dấu ấn riêng. Khác với bánh sản xuất hàng loạt, mỗi chiếc bánh thủ công được làm với sự quan sát kỹ hơn về hương vị, độ ngọt, kết cấu và cả cách trang trí.</p><h2>1. Có sự chăm chút trong từng chi tiết</h2><p>Một chiếc bánh handmade không chỉ cần đúng công thức. Người làm bánh phải cân bằng độ mềm của cốt, độ béo của kem, vị ngọt và hương thơm sau cùng. Chính sự điều chỉnh thủ công này làm mỗi chiếc bánh có cảm giác sống động hơn.</p><h2>2. Hương vị dễ cá nhân hóa</h2><p>Khi đặt bánh thủ công, khách có thể trao đổi về khẩu vị: ít ngọt hơn, nhiều cacao hơn, thêm matcha hoặc đổi topping. Đây là điểm khiến bánh handmade hợp với các dịp cá nhân như sinh nhật, kỷ niệm, tiệc nhỏ hoặc quà tặng.</p><h2>3. Hình thức có câu chuyện</h2><p>Trang trí bánh không nhất thiết phải thật cầu kỳ. Đôi khi một màu kem dịu, một dòng chữ nhỏ hoặc một chi tiết mascot cũng đủ khiến chiếc bánh trở nên có ý nghĩa. Với SUVELLA, sự dễ thương được đặt trong một ngôn ngữ thị giác thanh lịch, nên bánh có cảm giác vừa vui vừa có gu.</p><h2>4. Phù hợp với những khoảnh khắc nhỏ</h2><p>Không phải lúc nào bánh cũng dành cho tiệc lớn. Một phần tiramisu, mousse hoặc Su Sing cũng có thể làm dịu một buổi chiều oi ả. Đó là lý do <strong>bánh handmade</strong> thường tạo cảm giác thân mật và đáng nhớ hơn.</p><p>Nếu em đang tìm một món bánh có cảm xúc riêng, bánh handmade là lựa chọn đáng cân nhắc. Nó không chỉ là món ăn, mà còn là cách gửi đi sự quan tâm một cách mềm mại.</p>`,
+          slug: "blog-2",
+          title: "Lorem ipsum dolor si",
+          excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          date: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          html: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et d</p>`,
         },
         {
           id: 3,
-          slug: "nhung-chiec-banh-signature",
-          title: "Những chiếc bánh signature cho các dịp ngọt ngào",
-          keyword: "bánh signature",
-          excerpt:
-            "Khám phá các dòng bánh signature tại SUVELLA: tiramisu, red velvet, mousse và su sing cho nhiều dịp khác nhau.",
-          date: "24.04.2026",
-          html: `<p><strong>Bánh signature</strong> là những món thể hiện rõ tinh thần của một tiệm bánh. Với SUVELLA, signature không chỉ nằm ở hương vị, mà còn ở cảm giác: mềm, vui, tinh tế và đủ khác biệt để người dùng nhớ đến.</p><h2>1. Tiramisu truyền thống</h2><p>Tiramisu là lựa chọn hợp với những buổi chiều cần sự thư giãn. Lớp kem mềm, cacao thơm và vị béo dịu tạo nên cảm giác cân bằng. Đây là món phù hợp cho người thích bánh không quá ngọt.</p><h2>2. Red Velvet</h2><p>Red Velvet có vẻ ngoài nổi bật nhưng hương vị vẫn mềm mại. Cốt bánh ẩm, kết hợp cream cheese nhẹ, hợp cho sinh nhật nhỏ, buổi gặp bạn bè hoặc làm quà tặng.</p><h2>3. Mousse trái cây</h2><p>Mousse chanh leo và mousse việt quất phù hợp với người thích vị tươi, mát và nhẹ miệng. Đây là lựa chọn tốt cho ngày nóng hoặc các buổi tiệc cần món tráng miệng không quá nặng.</p><h2>4. Su Sing nhiều vị</h2><p>Dòng Su Sing có ưu điểm nhỏ gọn, dễ ăn và dễ chia sẻ. Các vị truyền thống, matcha, socola hoặc trân châu đường đen giúp khách có nhiều lựa chọn hơn trong cùng một hộp bánh.</p><h2>5. Bánh bông lan trứng muối</h2><p>Bánh bông lan trứng muối là món quen thuộc nhưng luôn hiệu quả. Vị mặn nhẹ của trứng muối cân bằng với sốt và cốt bánh mềm, hợp cho cả học sinh, sinh viên lẫn gia đình.</p><p>Khi chọn <strong>bánh signature</strong>, em có thể bắt đầu từ cảm giác muốn tạo ra: dịu nhẹ, nổi bật, tươi mát hay gần gũi. Từ đó, việc chọn bánh sẽ tự nhiên và đúng dịp hơn.</p>`,
+          slug: "blog-3",
+          title: "Lorem ipsum dolor si",
+          excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          date: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+          html: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et d</p>`,
         },
       ];
       const fmt = (n) => n.toLocaleString("vi-VN") + "đ";
       const $ = (s) => document.querySelector(s);
       const $$ = (s) => document.querySelectorAll(s);
-      let cart = JSON.parse(localStorage.getItem("suvelas_cart") || "[]");
+      let cart = JSON.parse(localStorage.getItem("suvella_cart") || "[]");
       cart = cart.filter((item) =>
         products.some((product) => product.id === item.id),
       );
@@ -1490,15 +1590,19 @@
         $("#blogGrid").innerHTML = articles
           .map(
             (a, i) =>
-              `<article class="card blog-card"><div class="product-img blog-card-cover"><img class="product-photo" src="${getBlogImage(a, i)}" alt="${a.title}" width="1200" height="900" loading="lazy"></div><div class="product-body"><div class="blog-meta">${a.date}</div><h3>${a.title}</h3><p>${a.excerpt}</p><button class="btn secondary" onclick="openArticle('${a.slug}')">Đọc thêm</button></div></article>`,
+              `<article class="card blog-card"><div class="product-img"><img class="product-photo" src="${getBlogImage(a, i)}" alt="${a.title}" width="1200" height="900" loading="lazy"></div><div class="product-body"><div class="blog-meta">${a.date}</div><h3>${a.title}</h3><p>${a.excerpt}</p><button class="btn secondary" onclick="openArticle('${a.slug}')">Đọc thêm</button></div></article>`,
           )
           .join("");
       }
       function openProduct(id) {
         const p = products.find((x) => x.id === id);
+        const bestSellerIds = new Set([1, 7, 9]);
+        const productLabel = bestSellerIds.has(p.id)
+          ? "Suvella's best seller"
+          : "Suvella's must try";
         currentQty = 1;
         $("#productDetail").innerHTML =
-          `<div class="product-img detail-img"><img class="product-photo" src="${p.image}" alt="${p.name}" width="1200" height="900"></div><div><span class="eyebrow">${p.cat} Detail</span><h2>${p.name}</h2><p class="lead">${p.desc}</p><div class="price">${fmt(p.price)}</div><div class="qty"><button onclick="changeCurrentQty(-1)">−</button><strong id="currentQty">1</strong><button onclick="changeCurrentQty(1)">+</button></div><button class="btn" onclick="addToCart(${p.id},currentQty);closeModal('productModal')">Thêm vào giỏ</button></div>`;
+          `<div class="product-img detail-img"><img class="product-photo" src="${p.image}" alt="${p.name}" width="1200" height="900"></div><div><span class="eyebrow">${productLabel}</span><h2>${p.name}</h2><p class="lead">${p.desc}</p><div class="price">${fmt(p.price)}</div><div class="qty"><button onclick="changeCurrentQty(-1)">−</button><strong id="currentQty">1</strong><button onclick="changeCurrentQty(1)">+</button></div><button class="btn" onclick="addToCart(${p.id},currentQty);closeModal('productModal')">Thêm vào giỏ</button></div>`;
         openModal("productModal");
       }
       function changeCurrentQty(n) {
@@ -1510,10 +1614,10 @@
         if (found) found.qty += qty;
         else cart.push({ id, qty });
         saveCart();
-        toast("Đã thêm vào giỏ hàng");
+        toast("Bánh đã được thêm vào giỏ hàng");
       }
       function saveCart() {
-        localStorage.setItem("suvelas_cart", JSON.stringify(cart));
+        localStorage.setItem("suvella_cart", JSON.stringify(cart));
         renderCart();
       }
       function getCartTotal() {
@@ -1544,13 +1648,14 @@
         $("#cartCount").textContent = cart.reduce((s, i) => s + i.qty, 0);
         $("#cartTotal").textContent = fmt(total);
         $("#checkoutTotal").textContent = fmt(total);
-        $("#checkoutSummary").textContent = cart.length
-          ? cart
-              .map(
-                (i) => `${products.find((p) => p.id === i.id).name} x${i.qty}`,
-              )
-              .join(", ")
-          : "Giỏ hàng đang trống.";
+        $("#checkoutSummary").innerHTML = cart.length
+          ? `<div class="checkout-list-row checkout-list-head"><span>Sản phẩm</span><span>Đơn giá</span><span>Số lượng</span><span>Thành tiền</span></div>${cart
+              .map((i) => {
+                const p = products.find((product) => product.id === i.id);
+                return `<div class="checkout-list-row"><span>${p.name}</span><span>${fmt(p.price)}</span><span>${i.qty}</span><span>${fmt(p.price * i.qty)}</span></div>`;
+              })
+              .join("")}`
+          : `<div class="checkout-list-row"><span>Giỏ hàng đang trống, bạn hãy chọn vài món bánh nha!</span><span>0đ</span><span>0</span><span>0đ</span></div>`;
         updatePaymentQr(total);
         $("#cartList").innerHTML = cart.length
           ? cart
@@ -1559,7 +1664,7 @@
                 return `<div class="cart-item"><div class="thumb"><img src="${p.image}" alt="${p.name}" width="900" height="900" loading="lazy"></div><div><h4>${p.name}</h4><p>${fmt(p.price)} • ${p.cat}</p><div class="cart-controls"><button onclick="updateQty(${p.id},-1)">−</button><span>${i.qty}</span><button onclick="updateQty(${p.id},1)">+</button></div></div><button class="remove" onclick="removeItem(${p.id})">×</button></div>`;
               })
               .join("")
-          : "<p>Giỏ hàng đang trống, hãy chọn vài món ngọt nha!</p>";
+          : "<p>Giỏ hàng đang trống, hãy chọn vài món bánh nha!</p>";
       }
       function updateQty(id, n) {
         const item = cart.find((i) => i.id === id);
@@ -1604,7 +1709,7 @@
       $("#closeCart").onclick = () => $("#cartDrawer").classList.remove("show");
       $("#checkoutBtn").onclick = () => {
         if (!cart.length) {
-          toast("Giỏ hàng đang trống");
+          toast("Giỏ hàng đang trống, bạn hãy chọn vài món bánh nha!");
           return;
         }
         updatePaymentQr();
@@ -1624,12 +1729,16 @@
         saveCart();
         closeModal("checkoutModal");
         $("#cartDrawer").classList.remove("show");
-        toast("Đặt hàng thành công! Suvella sẽ liên hệ xác nhận.");
+        toast(
+          "Suvella đã nhận được đơn hàng của bạn. Hãy chờ đợi để được thưởng thức những chiếc bánh ngọt ngào nha!",
+        );
       });
       $("#contactForm").addEventListener("submit", (e) => {
         e.preventDefault();
         e.target.reset();
-        toast("Đã gửi yêu cầu tư vấn");
+        toast(
+          "Suvella đã nhận được yêu cầu từ bạn. Suvella sẽ liên hệ lại bạn trong thời gian sớm nhất!",
+        );
       });
       $("#hamb").onclick = () => $("#menu").classList.toggle("show");
       $$("#menu a").forEach(
