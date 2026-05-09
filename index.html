@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" href="logo.webp" />
     <meta
       name="description"
-      content="SUVELLA là thương hiệu dành cho các tín đồ đam mê đồ ngọt. Suvella luôn mang đến những chiếc bánh được làm tươi mỗi ngày, chứa đựng cả sự ngọt ngào và tấm lòng chân thành gửi gắm đến khách hàng."
+      content="SUVELLA là thương hiệu dành cho các tín đồ đam mê đồ ngọt, luôn mang đến những chiếc bánh được làm tươi mỗi ngày, chứa đựng cả sự ngọt ngào và tấm lòng chân thành gửi gắm đến khách hàng."
     />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@600;700;800;900&display=swap");
@@ -848,6 +848,29 @@
         text-align: right;
         font-weight: 800;
       }
+      .special-transfer-btn {
+        margin: 8px 0 12px;
+        border: 1px dashed rgba(48, 94, 182, 0.22);
+        background: rgba(255, 255, 255, 0.2);
+        color: rgba(48, 94, 182, 0.34);
+        box-shadow: none;
+        opacity: 0.24;
+        filter: blur(0.2px);
+      }
+      .special-transfer-btn:hover {
+        opacity: 0.58;
+        color: var(--blue);
+        filter: none;
+      }
+      .checkout-sticker {
+        display: none;
+        width: min(260px, 100%);
+        height: auto;
+        margin: 14px auto 0;
+      }
+      .checkout-sticker.show {
+        display: block;
+      }
       .blog-page {
         display: none;
         padding: 96px 0;
@@ -1098,7 +1121,7 @@
               </a>
               <a
                 class="banner-slide"
-                href="#article-nhung-chiec-banh-signature"
+                href="#article-blog-3"
               >
                 <img
                   src="banner3.webp"
@@ -1399,6 +1422,7 @@
                 <span>Tổng</span><span id="checkoutTotal">0đ</span>
               </div>
             </div>
+            <img class="checkout-sticker" id="checkoutSticker" src="" alt="Sticker đặc biệt" />
           </div>
           <form class="form" id="checkoutForm">
             <input required id="customerName" placeholder="Tên của bạn" /><input
@@ -1423,12 +1447,13 @@
               <div class="bank-info">
                 <span>Ngân hàng: <b>Techcombank</b></span>
                 <span>Số tài khoản: <b>868366866868</b></span>
-                <span>Chủ tài khoản: <b>NGUYENTRANANH</b></span>
+                <span>Chủ tài khoản: <b>NGUYEN TRAN ANH</b></span>
                 <span>Số tiền: <b id="transferAmount">0đ</b></span>
                 <span>Nội dung: <b id="transferContent">DH000</b></span>
               </div>
             </div>
             <button class="btn" type="submit">Xác nhận đặt hàng</button>
+            <button class="btn special-transfer-btn" id="specialTransferBtn" type="button">Điều đặc biệt!!!</button>
           </form>
         </div>
       </div>
@@ -1567,6 +1592,7 @@
         products.some((product) => product.id === item.id),
       );
       let currentQty = 1;
+      let specialTransferActive = false;
       function renderProducts() {
         const q = $("#searchInput").value.toLowerCase();
         const cat = $("#categoryFilter").value;
@@ -1596,10 +1622,9 @@
       }
       function openProduct(id) {
         const p = products.find((x) => x.id === id);
-        const bestSellerIds = new Set([1, 7, 9]);
-        const productLabel = bestSellerIds.has(p.id)
-          ? "Suvella's best seller"
-          : "Suvella's must try";
+        let productLabel = "Suvella's must-try";
+        if ([1, 7, 9].includes(p.id)) productLabel = "Suvella's best seller";
+        else if ([2, 3, 4].includes(p.id)) productLabel = "Suvella's signature";
         currentQty = 1;
         $("#productDetail").innerHTML =
           `<div class="product-img detail-img"><img class="product-photo" src="${p.image}" alt="${p.name}" width="1200" height="900"></div><div><span class="eyebrow">${productLabel}</span><h2>${p.name}</h2><p class="lead">${p.desc}</p><div class="price">${fmt(p.price)}</div><div class="qty"><button onclick="changeCurrentQty(-1)">−</button><strong id="currentQty">1</strong><button onclick="changeCurrentQty(1)">+</button></div><button class="btn" onclick="addToCart(${p.id},currentQty);closeModal('productModal')">Thêm vào giỏ</button></div>`;
@@ -1627,6 +1652,7 @@
         );
       }
       function getTransferContent() {
+        if (specialTransferActive) return "Cô Dịu đáng iu";
         const d = new Date();
         const yy = String(d.getFullYear()).slice(-2);
         const mm = String(d.getMonth() + 1).padStart(2, "0");
@@ -1642,6 +1668,12 @@
         qr.src = `https://img.vietqr.io/image/${bank}-${account}-compact2.png?amount=${total}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent("SUVELLA")}`;
         $("#transferAmount").textContent = fmt(total);
         $("#transferContent").textContent = content;
+      }
+      function resetSpecialTransfer() {
+        specialTransferActive = false;
+        $("#specialTransferBtn").style.display = "";
+        $("#checkoutSticker").classList.remove("show");
+        $("#checkoutSticker").src = "";
       }
       function renderCart() {
         const total = getCartTotal();
@@ -1707,11 +1739,19 @@
       $("#categoryFilter").addEventListener("change", renderProducts);
       $("#openCart").onclick = () => $("#cartDrawer").classList.add("show");
       $("#closeCart").onclick = () => $("#cartDrawer").classList.remove("show");
+      $("#specialTransferBtn").onclick = () => {
+        specialTransferActive = true;
+        $("#specialTransferBtn").style.display = "none";
+        $("#checkoutSticker").src = `sticker${Math.floor(Math.random() * 16) + 1}.webp`;
+        $("#checkoutSticker").classList.add("show");
+        updatePaymentQr();
+      };
       $("#checkoutBtn").onclick = () => {
         if (!cart.length) {
           toast("Giỏ hàng đang trống, bạn hãy chọn vài món bánh nha!");
           return;
         }
+        resetSpecialTransfer();
         updatePaymentQr();
         openModal("checkoutModal");
       };
@@ -1804,3 +1844,6 @@
     </script>
   </body>
 </html>
+
+
+
