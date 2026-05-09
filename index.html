@@ -27,14 +27,61 @@
       }
       html {
         scroll-behavior: smooth;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(48, 94, 182, 0.5) transparent;
+        overflow-y: overlay;
+      }
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(48, 94, 182, 0.5) transparent;
+      }
+      html.is-scrolling,
+      .is-scrolling {
+        scrollbar-color: var(--blue) transparent;
+      }
+      *::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      *::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      *::-webkit-scrollbar-button {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+      *::-webkit-scrollbar-thumb {
+        background: rgba(48, 94, 182, 0.5);
+        border-radius: 999px;
+      }
+      html.is-scrolling::-webkit-scrollbar-thumb,
+      .is-scrolling::-webkit-scrollbar-thumb {
+        background: var(--blue);
+      }
+      *::-webkit-scrollbar-corner {
+        background: transparent;
       }
       body {
         margin: 0;
+        padding-top: 78px;
         background: var(--cream);
         color: var(--ink);
         line-height: 1.6;
         overflow-x: hidden;
+        overflow-y: overlay;
         font-family: "Nunito", Arial, sans-serif;
+      }
+      html.lock-scroll,
+      body.lock-scroll {
+        overflow: hidden;
+        overscroll-behavior: none;
+      }
+      body.lock-scroll {
+        position: fixed;
+        left: 0;
+        right: 0;
+        width: 100%;
       }
       img {
         max-width: 100%;
@@ -60,8 +107,10 @@
         margin: auto;
       }
       .topbar {
-        position: sticky;
+        position: fixed;
         top: 0;
+        left: 0;
+        right: 0;
         z-index: 50;
         background: rgba(253, 250, 240, 0.86);
         backdrop-filter: blur(16px);
@@ -211,7 +260,7 @@
         display: grid;
         place-items: center;
         color: var(--blue);
-        font-size: 12px;
+        font-size: 20px;
       }
       .hamb {
         display: none;
@@ -659,23 +708,38 @@
         inset: 0;
         background: rgba(23, 50, 92, 0.42);
         z-index: 100;
-        display: none;
+        display: flex;
         align-items: center;
         justify-content: center;
         padding: 18px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 0.32s ease,
+          visibility 0s linear 0.32s;
       }
       .modal.show {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition: opacity 0.32s ease;
       }
       .modal-box {
         width: min(980px, 100%);
         max-height: 90vh;
         overflow: auto;
+        overscroll-behavior: contain;
         background: var(--cream);
         border-radius: 32px;
         border: 1px solid var(--line);
         box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
         position: relative;
+        transform: translateY(16px) scale(0.98);
+        transition: transform 0.32s ease;
+      }
+      .modal.show .modal-box {
+        transform: translateY(0) scale(1);
       }
       .modal-close {
         position: absolute;
@@ -702,6 +766,145 @@
       }
       .product-detail .product-photo {
         border-radius: inherit;
+      }
+      .welcome-detail {
+        display: grid;
+        gap: 24px;
+        padding: 48px 34px 34px;
+        background:
+          linear-gradient(135deg, rgba(254, 225, 226, 0.5), transparent 34%),
+          linear-gradient(315deg, rgba(48, 94, 182, 0.12), transparent 36%),
+          var(--cream);
+      }
+      .welcome-intro,
+      .welcome-final {
+        margin: 0;
+        font-family: "Nunito", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.55;
+        color: var(--ink);
+        text-align: center;
+      }
+      .welcome-intro {
+        width: 66.666%;
+        margin: 0 auto 36px;
+        font-size: 18px;
+      }
+      .welcome-final {
+        margin-top: 12px;
+      }
+      .welcome-section {
+        padding: 0;
+      }
+      .welcome-section h3 {
+        margin: 0 0 16px;
+        color: var(--blue);
+        font-size: 22px;
+      }
+      .welcome-section p {
+        margin: 0;
+        line-height: 1.7;
+      }
+      .welcome-brand {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.8fr) 1.2fr;
+        gap: 20px;
+        align-items: center;
+        width: min(820px, 100%);
+        margin: 0 auto 18px;
+      }
+      .welcome-media {
+        aspect-ratio: 4 / 3;
+        display: grid;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+        border-radius: 28px;
+        box-shadow: 0 22px 44px rgba(48, 94, 182, 0.18);
+      }
+      .welcome-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 28px;
+      }
+      .welcome-info,
+      .welcome-list {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .welcome-info li,
+      .welcome-list li {
+        position: relative;
+        padding-left: 18px;
+        line-height: 1.55;
+      }
+      .welcome-info li::before,
+      .welcome-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.72em;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--blue);
+      }
+      .brand-colors {
+        display: grid;
+        gap: 10px;
+        margin: 12px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .brand-colors li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-left: 0;
+        line-height: 1.4;
+      }
+      .brand-colors li::before {
+        content: none;
+      }
+      .color-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--blue);
+        box-shadow: none;
+        flex: 0 0 18px;
+      }
+      .color-pink {
+        background: #fee1e2;
+      }
+      .color-blue {
+        background: #305eb6;
+      }
+      .color-cream {
+        background: #fafdf0;
+      }
+      .welcome-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+      .welcome-note {
+        color: var(--blue);
+        font-weight: 900;
+      }
+      .welcome-actions {
+        display: flex;
+        justify-content: center;
+      }
+      .welcome-actions .btn {
+        min-width: 190px;
       }
       .qty {
         display: flex;
@@ -755,6 +958,7 @@
       .cart-list {
         padding: 18px;
         overflow: auto;
+        overscroll-behavior: contain;
         flex: 1;
       }
       .cart-item {
@@ -974,7 +1178,9 @@
       @media (max-width: 980px) {
         .hero-grid,
         .contact-grid,
-        .product-detail {
+        .product-detail,
+        .welcome-brand,
+        .welcome-grid {
           grid-template-columns: 1fr;
         }
         .footer-grid {
@@ -1020,6 +1226,9 @@
         }
       }
       @media (max-width: 560px) {
+        body {
+          padding-top: 70px;
+        }
         .container {
           width: min(100% - 24px, 1180px);
         }
@@ -1119,10 +1328,7 @@
                   height="720"
                 />
               </a>
-              <a
-                class="banner-slide"
-                href="#article-blog-3"
-              >
+              <a class="banner-slide" href="#article-blog-3">
                 <img
                   src="banner3.webp"
                   alt="SUVELLA banner 3"
@@ -1403,6 +1609,95 @@
         </button>
       </div>
     </div>
+    <div class="modal" id="welcomeModal">
+      <div class="modal-box">
+        <div class="welcome-detail">
+          <p class="welcome-intro">
+            Chào mừng cô Dịu và các bạn đã đến với website Suvella của Trần Anh.
+            Chúc cô và các bạn sẽ có một trải nghiệm thú vị!
+          </p>
+          <section class="welcome-section welcome-brand">
+            <div class="welcome-media">
+              <img
+                class="welcome-image"
+                src="welcome.webp"
+                alt="Chào mừng đến với Suvella"
+                width="1200"
+                height="900"
+              />
+            </div>
+            <ul class="welcome-info">
+              <li><b>Tên thương hiệu:</b> Suvella</li>
+              <li><b>Slogan:</b> Happy to Present</li>
+              <li><b>Sản phẩm:</b> Bánh ngọt handmade</li>
+              <li>
+                <b>Nhận diện thương hiệu:</b>
+                <ul class="brand-colors">
+                  <li>
+                    <span class="color-dot color-pink"></span>Pink: #FEE1E2
+                  </li>
+                  <li>
+                    <span class="color-dot color-blue"></span>Blue: #305EB6
+                  </li>
+                  <li>
+                    <span class="color-dot color-cream"></span>Cream: #FAFDF0
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <div class="welcome-grid">
+            <section class="welcome-section">
+              <h3>Tính năng</h3>
+              <ul class="welcome-list">
+                <li>
+                  Banner tự động trôi, ấn vào banner sẽ link đến nội dung liên
+                  quan
+                </li>
+                <li>Hiện thông báo toast sau khi thao tác</li>
+                <li>Không mất giỏ hàng sau khi reload trang</li>
+                <li>
+                  Tự động tính giá và hiển thị QR thanh toán theo nội dung đơn
+                  hàng
+                </li>
+              </ul>
+            </section>
+            <section class="welcome-section">
+              <h3>Chức năng</h3>
+              <ul class="welcome-list">
+                <li>Xem menu sản phẩm</li>
+                <li>Tìm kiếm sản phẩm</li>
+                <li>Lọc sản phẩm theo danh mục</li>
+                <li>Xem thông tin chi tiết về sản phẩm</li>
+                <li>Thêm sản phẩm vào giỏ hàng</li>
+                <li>Thanh toán đơn hàng</li>
+                <li>Đọc blog</li>
+                <li>Điền form tư vấn đặt bánh theo yêu cầu</li>
+              </ul>
+            </section>
+          </div>
+          <section class="welcome-section">
+            <h3>Điểm nổi bật trong thiết kế</h3>
+            <ul class="welcome-list">
+              <li>
+                Sử dụng và kết hợp hài hòa bộ màu sắc đặc trưng của thương hiệu
+              </li>
+              <li>Các thẻ và nút nổi lên khi di chuột vào</li>
+            </ul>
+          </section>
+          <p class="welcome-final">
+            Một <strong class="welcome-note">điều bất ngờ</strong> đang chờ đợi
+            cô và các bạn khám phá ở bước
+            <strong class="welcome-note">"Xác nhận đơn hàng"</strong>.
+          </p>
+          <div class="welcome-actions">
+            <button class="btn" data-close="welcomeModal" type="button">
+              Bắt đầu
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="modal" id="productModal">
       <div class="modal-box">
         <button class="modal-close" data-close="productModal">×</button>
@@ -1422,7 +1717,12 @@
                 <span>Tổng</span><span id="checkoutTotal">0đ</span>
               </div>
             </div>
-            <img class="checkout-sticker" id="checkoutSticker" src="" alt="Sticker đặc biệt" />
+            <img
+              class="checkout-sticker"
+              id="checkoutSticker"
+              src=""
+              alt="Sticker đặc biệt"
+            />
           </div>
           <form class="form" id="checkoutForm">
             <input required id="customerName" placeholder="Tên của bạn" /><input
@@ -1453,13 +1753,20 @@
               </div>
             </div>
             <button class="btn" type="submit">Xác nhận đặt hàng</button>
-            <button class="btn special-transfer-btn" id="specialTransferBtn" type="button">Điều đặc biệt!!!</button>
+            <button
+              class="btn special-transfer-btn"
+              id="specialTransferBtn"
+              type="button"
+            >
+              Điều đặc biệt!!!
+            </button>
           </form>
         </div>
       </div>
     </div>
     <div class="toast" id="toast"></div>
     <script>
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
       const products = [
         {
           id: 1,
@@ -1593,6 +1900,7 @@
       );
       let currentQty = 1;
       let specialTransferActive = false;
+      let lockedScrollY = 0;
       function renderProducts() {
         const q = $("#searchInput").value.toLowerCase();
         const cat = $("#categoryFilter").value;
@@ -1724,11 +2032,67 @@
         $("#siteMain").classList.remove("hidden");
         setTimeout(() => document.querySelector("#blog").scrollIntoView(), 0);
       }
+      function updatePageScrollLock() {
+        const hasModal = Array.from($$(".modal")).some((m) =>
+          m.classList.contains("show"),
+        );
+        const hasCart = $("#cartDrawer").classList.contains("show");
+        const shouldLock = hasModal || hasCart;
+        const isLocked = document.body.classList.contains("lock-scroll");
+        if (shouldLock && !isLocked) {
+          lockedScrollY =
+            window.scrollY || document.documentElement.scrollTop || 0;
+          document.body.style.top = `-${lockedScrollY}px`;
+          document.documentElement.classList.add("lock-scroll");
+          document.body.classList.add("lock-scroll");
+        }
+        if (!shouldLock && isLocked) {
+          document.documentElement.classList.remove("lock-scroll");
+          document.body.classList.remove("lock-scroll");
+          document.body.style.top = "";
+          window.scrollTo(0, lockedScrollY);
+        }
+      }
       function openModal(id) {
         $("#" + id).classList.add("show");
+        updatePageScrollLock();
       }
       function closeModal(id) {
         $("#" + id).classList.remove("show");
+        updatePageScrollLock();
+      }
+      function openCartDrawer() {
+        $("#cartDrawer").classList.add("show");
+        updatePageScrollLock();
+      }
+      function closeCartDrawer() {
+        $("#cartDrawer").classList.remove("show");
+        updatePageScrollLock();
+      }
+      function bindScrollFeedback(target) {
+        let scrollTimer;
+        const marker = target === window ? document.documentElement : target;
+        target.addEventListener(
+          "scroll",
+          () => {
+            marker.classList.add("is-scrolling");
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(
+              () => marker.classList.remove("is-scrolling"),
+              650,
+            );
+          },
+          { passive: true },
+        );
+      }
+      function allowOverlayScroll(target) {
+        const modalBox = target.closest?.(".modal.show .modal-box");
+        const cartDrawer = target.closest?.("#cartDrawer.show");
+        return Boolean(modalBox || cartDrawer);
+      }
+      function blockBackgroundScroll(e) {
+        if (!document.body.classList.contains("lock-scroll")) return;
+        if (!allowOverlayScroll(e.target)) e.preventDefault();
       }
       function toast(msg) {
         $("#toast").textContent = msg;
@@ -1737,12 +2101,13 @@
       }
       $("#searchInput").addEventListener("input", renderProducts);
       $("#categoryFilter").addEventListener("change", renderProducts);
-      $("#openCart").onclick = () => $("#cartDrawer").classList.add("show");
-      $("#closeCart").onclick = () => $("#cartDrawer").classList.remove("show");
+      $("#openCart").onclick = openCartDrawer;
+      $("#closeCart").onclick = closeCartDrawer;
       $("#specialTransferBtn").onclick = () => {
         specialTransferActive = true;
         $("#specialTransferBtn").style.display = "none";
-        $("#checkoutSticker").src = `sticker${Math.floor(Math.random() * 16) + 1}.webp`;
+        $("#checkoutSticker").src =
+          `sticker${Math.floor(Math.random() * 16) + 1}.webp`;
         $("#checkoutSticker").classList.add("show");
         updatePaymentQr();
       };
@@ -1760,7 +2125,7 @@
       );
       $$(".modal").forEach((m) =>
         m.addEventListener("click", (e) => {
-          if (e.target === m) m.classList.remove("show");
+          if (e.target === m && m.id !== "welcomeModal") closeModal(m.id);
         }),
       );
       $("#checkoutForm").addEventListener("submit", (e) => {
@@ -1768,7 +2133,7 @@
         cart = [];
         saveCart();
         closeModal("checkoutModal");
-        $("#cartDrawer").classList.remove("show");
+        closeCartDrawer();
         toast(
           "Suvella đã nhận được đơn hàng của bạn. Hãy chờ đợi để được thưởng thức những chiếc bánh ngọt ngào nha!",
         );
@@ -1834,6 +2199,14 @@
           bannerTimer = setInterval(nextBanner, 4300);
         });
       });
+      bindScrollFeedback(window);
+      $$(".modal-box, .cart-list").forEach(bindScrollFeedback);
+      document.addEventListener("wheel", blockBackgroundScroll, {
+        passive: false,
+      });
+      document.addEventListener("touchmove", blockBackgroundScroll, {
+        passive: false,
+      });
       setBannerPosition(0, false);
       bannerTimer = setInterval(nextBanner, 4300);
       renderProducts();
@@ -1841,9 +2214,10 @@
       renderCart();
       if (location.hash.startsWith("#article-"))
         openArticle(location.hash.replace("#article-", ""));
+      window.addEventListener("load", () => {
+        window.scrollTo(0, 0);
+        openModal("welcomeModal");
+      });
     </script>
   </body>
 </html>
-
-
-
