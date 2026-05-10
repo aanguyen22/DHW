@@ -1298,19 +1298,23 @@
         }
         .mobile-bottom-nav {
           position: fixed;
-          left: 12px;
-          right: 12px;
-          bottom: 12px;
+          left: 0;
+          right: 0;
+          bottom: 0;
           z-index: 60;
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 10px;
-          padding: 10px;
+          min-height: 70px;
+          padding: 10px 12px;
           background: rgba(253, 250, 240, 0.86);
           border: 1px solid var(--line);
-          border-radius: 999px;
+          border-right: 0;
+          border-bottom: 0;
+          border-left: 0;
+          border-radius: 0;
           backdrop-filter: blur(16px);
-          box-shadow: 0 14px 36px rgba(23, 50, 92, 0.16);
+          box-shadow: 0 -12px 30px rgba(23, 50, 92, 0.12);
         }
         .mobile-bottom-nav .btn {
           display: inline-flex;
