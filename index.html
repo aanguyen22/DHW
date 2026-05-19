@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SUVELLA | Sự lựa chọn ngọt ngào</title>
-    <link rel="icon" type="image/webp" href="https://trananhtlu.id.vn/logo.webp" />
+    <link
+      rel="icon"
+      type="image/webp"
+      href="https://trananhtlu.id.vn/logo.webp"
+    />
     <link rel="apple-touch-icon" href="https://trananhtlu.id.vn/logo.webp" />
     <meta
       name="description"
@@ -1685,18 +1689,20 @@
                 href="https://fem.tlu.edu.vn"
                 target="_blank"
                 rel="noopener"
-                ><img src="https://trananhtlu.id.vn/khoa.webp" alt="Khoa Kinh tế và Quản lý logo" /><span
-                  >Khoa Kinh tế và Quản lý</span
-                ></a
+                ><img
+                  src="https://trananhtlu.id.vn/khoa.webp"
+                  alt="Khoa Kinh tế và Quản lý logo"
+                /><span>Khoa Kinh tế và Quản lý</span></a
               >
               <a
                 class="footer-link footer-partner"
                 href="https://fem.tlu.edu.vn/bm-thuong-mai-dien-tu"
                 target="_blank"
                 rel="noopener"
-                ><img src="https://trananhtlu.id.vn/bm.webp" alt="Bộ môn Thương mại điện tử logo" /><span
-                  >Bộ môn Thương mại điện tử</span
-                ></a
+                ><img
+                  src="https://trananhtlu.id.vn/bm.webp"
+                  alt="Bộ môn Thương mại điện tử logo"
+                /><span>Bộ môn Thương mại điện tử</span></a
               >
             </div>
           </div>
@@ -2036,9 +2042,12 @@
       const $ = (s) => document.querySelector(s);
       const $$ = (s) => document.querySelectorAll(s);
       const blogImages = {
-        "banh-tiramisu-cho-buoi-chieu-thu-gian": "https://trananhtlu.id.vn/blog1.webp",
-        "banh-red-velvet-bieu-tuong-cua-tinh-yeu-lang-man": "https://trananhtlu.id.vn/blog2.webp",
-        "banh-ngot-mini-cho-cac-su-kien-trang-trong": "https://trananhtlu.id.vn/blog3.webp",
+        "banh-tiramisu-cho-buoi-chieu-thu-gian":
+          "https://trananhtlu.id.vn/blog1.webp",
+        "banh-red-velvet-bieu-tuong-cua-tinh-yeu-lang-man":
+          "https://trananhtlu.id.vn/blog2.webp",
+        "banh-ngot-mini-cho-cac-su-kien-trang-trong":
+          "https://trananhtlu.id.vn/blog3.webp",
       };
       let cart = JSON.parse(localStorage.getItem("suvella_cart") || "[]");
       cart = cart.filter((item) =>
@@ -2064,7 +2073,9 @@
             .join("") || "<p>Không tìm thấy sản phẩm phù hợp.</p>";
       }
       function getBlogImage(article) {
-        return blogImages[article.slug] || "https://trananhtlu.id.vn/blog1.webp";
+        return (
+          blogImages[article.slug] || "https://trananhtlu.id.vn/blog1.webp"
+        );
       }
       function renderBlogs() {
         $("#blogGrid").innerHTML = articles
