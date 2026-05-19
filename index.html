@@ -945,6 +945,7 @@
         top: 0;
         width: min(430px, 100%);
         height: 100vh;
+        height: 100dvh;
         background: var(--cream);
         z-index: 90;
         box-shadow: -18px 0 40px rgba(23, 50, 92, 0.18);
@@ -974,6 +975,7 @@
         overflow: auto;
         overscroll-behavior: contain;
         flex: 1;
+        min-height: 0;
       }
       .cart-item {
         display: grid;
@@ -1027,7 +1029,7 @@
       }
       .remove {
         background: transparent !important;
-        color: #b44444 !important;
+        color: var(--blue) !important;
         font-size: 18px !important;
       }
       .cart-foot {
@@ -1276,7 +1278,9 @@
           height: 70px;
         }
         .brand .brand-name {
-          display: none;
+          display: inline;
+          font-size: 22px;
+          letter-spacing: 0.1em;
         }
         .logo-mark {
           width: 46px;
@@ -1314,6 +1318,10 @@
         }
         .cart-drawer {
           right: -100%;
+          height: 100dvh;
+        }
+        .cart-foot {
+          padding-bottom: calc(18px + env(safe-area-inset-bottom));
         }
         .top-banners {
           padding: 18px 0 34px;
@@ -1329,13 +1337,9 @@
           gap: 6px;
         }
         .checkout-list-row {
-          grid-template-columns:
-            minmax(88px, 1.15fr)
-            minmax(52px, 0.68fr)
-            minmax(38px, 0.45fr)
-            minmax(58px, 0.72fr);
-          gap: 6px;
-          font-size: 11px;
+          grid-template-columns: 1fr 0.78fr 0.7fr 0.85fr;
+          gap: 5px;
+          font-size: 10.5px;
         }
         .checkout-list-head {
           padding-bottom: 6px;
@@ -2355,7 +2359,7 @@
       handleArticleHash(false);
       window.addEventListener("load", () => {
         window.scrollTo(0, 0);
-        openModal("welcomeModal");
+        if (!location.hash) openModal("welcomeModal");
       });
     </script>
   </body>
