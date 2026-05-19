@@ -1056,6 +1056,10 @@
         color: var(--muted);
         font-size: 14px;
       }
+      .checkout-list-row span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
       .checkout-list-head {
         color: var(--blue);
         font-weight: 900;
@@ -1320,6 +1324,24 @@
         }
         .banner-dot {
           bottom: 12px;
+        }
+        .checkout-list {
+          gap: 6px;
+        }
+        .checkout-list-row {
+          grid-template-columns:
+            minmax(88px, 1.15fr)
+            minmax(52px, 0.68fr)
+            minmax(38px, 0.45fr)
+            minmax(58px, 0.72fr);
+          gap: 6px;
+          font-size: 11px;
+        }
+        .checkout-list-head {
+          padding-bottom: 6px;
+        }
+        .checkout-list-row span:nth-child(n + 2) {
+          text-align: right;
         }
         .nav-actions .btn {
           display: none;
@@ -1972,7 +1994,7 @@
           excerpt:
             "Bánh Tiramisu là món tráng miệng hoàn hảo cho những buổi chiều thư giãn. Không chỉ ngon miệng, bánh Tiramisu còn mang đến cảm giác tinh tế, giúp khoảng thời gian nghỉ ngơi trở nên trọn vẹn hơn.",
           date: "15/05/2026",
-          html: `<p><a href="https://trananhtlu.id.vn" class="article-strong">Bánh Tiramisu</a> luôn nằm trong danh sách những món bánh ngọt được yêu thích nhất dành cho những ai muốn tận hưởng một buổi chiều thư thái. Có nguồn gốc từ Ý, loại bánh này nổi bật với sự hòa quyện giữa lớp bánh ladyfinger thấm cà phê, kem mascarpone béo mịn cùng lớp cacao phủ phía trên tạo nên tổng thể hài hòa và tinh tế. Đây là lựa chọn lý tưởng khi bạn muốn dành thời gian nghỉ ngơi sau một ngày làm việc bận rộn hoặc đơn giản là tự thưởng cho bản thân một khoảng lặng dễ chịu.
+          html: `<p><a href="https://trananhtlu.id.vn" class="article-strong">Bánh Tiramisu</a> luôn nằm trong danh sách những món bánh ngọt được yêu thích nhất dành cho những ai muốn tận hưởng một buổi chiều thư thái. Có nguồn gốc từ Ý, loại bánh này nổi bật với sự hòa quyện giữa lớp bánh ladyfinger thấm cà phê, kem mascarpone béo mịn cùng lớp cacao phủ phía trên tạo nên tổng thể hài hòa và tinh tế. Đây là lựa chọn lý tưởng khi bạn muốn dành thời gian nghỉ ngơi sau một ngày làm việc bận rộn hoặc đơn giản là tự thưởng cho bản thân một khoảng lặng dễ chịu.</p>
                 <p><a href="https://trananhtlu.id.vn/#article-banh-tiramisu-cho-buoi-chieu-thu-gian" class="article-strong">Bánh Tiramisu</a> không quá ngọt như nhiều dòng bánh kem truyền thống, chính điều đó khiến món bánh này trở thành lựa chọn hoàn hảo khi kết hợp cùng trà hoặc cà phê vào buổi chiều. Vị đắng nhẹ của espresso hòa quyện cùng độ béo thanh của mascarpone tạo nên cảm giác vừa đủ, không gây ngấy mà ngược lại còn khiến người thưởng thức muốn ăn thêm một miếng nữa. Với những ai yêu thích phong cách sống chậm, việc dành thời gian bên một chiếc bánh Tiramisu nhỏ cùng bản nhạc nhẹ nhàng cũng đủ để tái tạo năng lượng sau những giờ làm việc căng thẳng.</p>
                 <p><a href="https://trananhtlu.id.vn/#article-banh-red-velvet-bieu-tuong-cua-tinh-yeu-lang-man" class="article-strong">Bánh Tiramisu</a> còn ghi điểm bởi sự linh hoạt trong cách thưởng thức và bày trí. Từ phiên bản bánh nguyên chiếc dành cho các buổi họp mặt nhỏ đến dạng bánh mini tiện lợi, Tiramisu đều mang đến cảm giác sang trọng và tinh tế. Ngày nay, nhiều tiệm bánh còn sáng tạo thêm các phiên bản vị matcha hoặc trái cây nhằm làm mới trải nghiệm nhưng vẫn giữ được tinh thần nguyên bản của món bánh Ý kinh điển.</p>
                 <p><a href="https://trananhtlu.id.vn/#shop" class="article-strong">Bánh Tiramisu</a> cùng với một buổi chiều yên bình lại trở thành cách chữa lành hiệu quả giữ nhịp sống vội vã, bận rộn. Hương vị của Tiramisu không quá cầu kỳ nhưng đủ tinh tế để khiến người ta cảm thấy dễ chịu và thư giãn. Chính vì vậy, món bánh này không chỉ đơn thuần là món tráng miệng mà còn là một phần của trải nghiệm sống chậm, tận hưởng những khoảnh khắc nhỏ nhưng đáng giá trong cuộc sống hằng ngày.</p>`,
@@ -2116,9 +2138,12 @@
         cart = cart.filter((i) => i.id !== id);
         saveCart();
       }
-      function openArticle(slug) {
+      function openArticle(slug, shouldPush = true) {
         const a = articles.find((x) => x.slug === slug);
-        history.pushState(null, "", "#article-" + slug);
+        if (!a) return;
+        const articleHash = "#article-" + slug;
+        if (shouldPush && location.hash !== articleHash)
+          history.pushState(null, "", articleHash);
         $("#siteMain").classList.add("hidden");
         $("#articlePage").classList.add("show");
         $("#articleContent").innerHTML =
@@ -2126,10 +2151,18 @@
         window.scrollTo(0, 0);
       }
       function backToSite() {
-        history.pushState(null, "", "#blog");
+        if (location.hash !== "#blog") history.pushState(null, "", "#blog");
         $("#articlePage").classList.remove("show");
         $("#siteMain").classList.remove("hidden");
         setTimeout(() => document.querySelector("#blog").scrollIntoView(), 0);
+      }
+      function handleArticleHash(shouldPush = false) {
+        if (location.hash.startsWith("#article-")) {
+          openArticle(location.hash.replace("#article-", ""), shouldPush);
+          return;
+        }
+        $("#articlePage").classList.remove("show");
+        $("#siteMain").classList.remove("hidden");
       }
       function updatePageScrollLock() {
         const hasModal = Array.from($$(".modal")).some((m) =>
@@ -2256,13 +2289,9 @@
         (a) => (a.onclick = () => $("#menu").classList.remove("show")),
       );
       window.addEventListener("popstate", () => {
-        if (location.hash.startsWith("#article-"))
-          openArticle(location.hash.replace("#article-", ""));
-        else {
-          $("#articlePage").classList.remove("show");
-          $("#siteMain").classList.remove("hidden");
-        }
+        handleArticleHash(false);
       });
+      window.addEventListener("hashchange", () => handleArticleHash(false));
       let bannerIndex = 0;
       const bannerTrack = document.querySelector("#bannerTrack");
       const bannerDots = document.querySelectorAll(".banner-dot");
@@ -2318,8 +2347,7 @@
       renderProducts();
       renderBlogs();
       renderCart();
-      if (location.hash.startsWith("#article-"))
-        openArticle(location.hash.replace("#article-", ""));
+      handleArticleHash(false);
       window.addEventListener("load", () => {
         window.scrollTo(0, 0);
         openModal("welcomeModal");
