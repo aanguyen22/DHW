@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -475,49 +475,8 @@
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
       }
-      .partner-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.78);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        padding: 24px 16px;
-        text-align: center;
-        box-shadow: 0 10px 28px rgba(23, 50, 92, 0.04);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        height: 100%;
-        justify-content: center;
-      }
-      .partner-card:hover {
-        transform: translateY(-6px);
-        box-shadow: var(--shadow);
-        border-color: var(--blue);
-      }
-      .partner-logo {
-        width: 100%;
-        height: 90px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 16px;
-      }
-      .partner-logo img {
-        max-width: 90%;
-        max-height: 100%;
-        object-fit: contain;
-        transition: transform 0.3s ease;
-      }
-      .partner-card:hover .partner-logo img {
-        transform: scale(1.05);
-      }
-      .partner-name {
-        font-family: "Comfortaa", Arial, sans-serif;
-        font-size: 13.5px;
-        font-weight: 700;
-        color: var(--ink);
-        line-height: 1.4;
-        margin: 0;
+      .partner-img {
+        aspect-ratio: 1 / 1;
       }
       .card {
         display: flex;
@@ -528,11 +487,16 @@
         border-radius: var(--radius);
         overflow: hidden;
         box-shadow: 0 10px 28px rgba(23, 50, 92, 0.06);
-        transition: 0.25s;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease,
+          border-color 0.3s ease;
+        cursor: pointer;
       }
       .card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-6px);
         box-shadow: var(--shadow);
+        border-color: var(--blue);
       }
       .product-img {
         aspect-ratio: 4 / 3;
@@ -548,6 +512,10 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .card:hover .product-photo {
+        transform: scale(1.05);
       }
       .feedback-marquee {
         width: 100%;
@@ -708,6 +676,17 @@
       .form select:focus {
         border-color: var(--blue);
         box-shadow: 0 0 0 4px rgba(48, 94, 182, 0.1);
+      }
+      .filter-box,
+      .form select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23305eb6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 18px center;
+        background-size: 16px;
+        padding-right: 44px;
       }
       footer {
         padding: 56px 0 24px;
@@ -1806,33 +1785,97 @@
           <div class="section-head">
             <div>
               <span class="eyebrow">Suvella Partners</span>
-              <h2>Đơn vị đồng hành</h2>
+              <h2>Đồng hành cùng Suvella</h2>
             </div>
           </div>
           <div class="partners-grid">
-            <a href="https://fidt.vn" target="_blank" rel="noopener" class="partner-card">
-              <div class="partner-logo">
-                <img src="https://trananhtlu.id.vn/partnerfidt.webp" alt="FIDT - Wealth For Life" loading="lazy" />
+            <a
+              href="https://fidt.vn"
+              target="_blank"
+              rel="noopener"
+              class="card"
+            >
+              <div class="product-img partner-img">
+                <img
+                  class="product-photo"
+                  src="https://trananhtlu.id.vn/partnerfidt.webp"
+                  alt="FIDT - Wealth For Life"
+                  loading="lazy"
+                />
               </div>
-              <span class="partner-name">FIDT - Wealth For Life</span>
+              <div class="product-body">
+                <h3>FIDT - Wealth For Life</h3>
+                <p>
+                  Đơn vị tư vấn đầu tư và quản lý tài sản chuyên nghiệp hàng đầu
+                  tại Việt Nam.
+                </p>
+              </div>
             </a>
-            <a href="https://www.facebook.com/sec.bav" target="_blank" rel="noopener" class="partner-card">
-              <div class="partner-logo">
-                <img src="https://trananhtlu.id.vn/partnersec.webp" alt="SEC - Câu lạc bộ Chứng khoán Học viện Ngân hàng" loading="lazy" />
+            <a
+              href="https://www.facebook.com/sec.bav"
+              target="_blank"
+              rel="noopener"
+              class="card"
+            >
+              <div class="product-img partner-img">
+                <img
+                  class="product-photo"
+                  src="https://trananhtlu.id.vn/partnersec.webp"
+                  alt="SEC - Câu lạc bộ Chứng khoán Học viện Ngân hàng"
+                  loading="lazy"
+                />
               </div>
-              <span class="partner-name">SEC - Câu lạc bộ Chứng khoán Học viện Ngân hàng</span>
+              <div class="product-body">
+                <h3>SEC - Câu lạc bộ Chứng khoán Học viện Ngân hàng</h3>
+                <p>
+                  Câu lạc bộ học thuật chuyên sâu về chứng khoán và đầu tư tài
+                  chính của BAV.
+                </p>
+              </div>
             </a>
-            <a href="https://www.facebook.com/micdav.club" target="_blank" rel="noopener" class="partner-card">
-              <div class="partner-logo">
-                <img src="https://trananhtlu.id.vn/partnermic.webp" alt="MIC - Câu lạc bộ MC Học viện Ngoại giao" loading="lazy" />
+            <a
+              href="https://www.facebook.com/micdav.club"
+              target="_blank"
+              rel="noopener"
+              class="card"
+            >
+              <div class="product-img partner-img">
+                <img
+                  class="product-photo"
+                  src="https://trananhtlu.id.vn/partnermic.webp"
+                  alt="MIC - Câu lạc bộ MC Học viện Ngoại giao"
+                  loading="lazy"
+                />
               </div>
-              <span class="partner-name">MIC - Câu lạc bộ MC Học viện Ngoại giao</span>
+              <div class="product-body">
+                <h3>MIC - Câu lạc bộ MC Học viện Ngoại giao</h3>
+                <p>
+                  Câu lạc bộ Người dẫn chương trình năng động, uy tín hàng đầu
+                  tại DAV.
+                </p>
+              </div>
             </a>
-            <a href="https://www.facebook.com/davprom2025" target="_blank" rel="noopener" class="partner-card">
-              <div class="partner-logo">
-                <img src="https://trananhtlu.id.vn/partnerdavprom.webp" alt="DAV PROM 2025 - CHAVERA" loading="lazy" />
+            <a
+              href="https://www.facebook.com/davprom2025"
+              target="_blank"
+              rel="noopener"
+              class="card"
+            >
+              <div class="product-img partner-img">
+                <img
+                  class="product-photo"
+                  src="https://trananhtlu.id.vn/partnerdavprom.webp"
+                  alt="DAV PROM 2025 - CHAVERA"
+                  loading="lazy"
+                />
               </div>
-              <span class="partner-name">DAV PROM 2025 - CHAVERA</span>
+              <div class="product-body">
+                <h3>DAV PROM 2025 - CHAVERA</h3>
+                <p>
+                  Sự kiện dạ tiệc Prom kỷ niệm mang dấu ấn hoàng gia đầy lộng
+                  lẫy và ý nghĩa.
+                </p>
+              </div>
             </a>
           </div>
         </div>
@@ -2371,7 +2414,7 @@
           list
             .map(
               (p) =>
-                `<article class="card"><div class="product-img"><img class="product-photo" src="${p.image}" alt="${p.desc}" width="1200" height="900" loading="lazy"></div><div class="product-body"><h3>${p.name}</h3><p>${p.desc}</p><div class="price">${fmt(p.price)}</div><div class="card-actions"><button class="btn secondary" onclick="openProduct(${p.id})">Xem chi tiết</button><button class="btn" onclick="addToCart(${p.id})">Thêm vào giỏ</button></div></div></article>`,
+                `<article class="card" onclick="openProduct(${p.id})"><div class="product-img"><img class="product-photo" src="${p.image}" alt="${p.desc}" width="1200" height="900" loading="lazy"></div><div class="product-body"><h3>${p.name}</h3><p>${p.desc}</p><div class="price">${fmt(p.price)}</div><div class="card-actions"><button class="btn secondary" onclick="event.stopPropagation(); openProduct(${p.id})">Xem chi tiết</button><button class="btn" onclick="event.stopPropagation(); addToCart(${p.id})">Thêm vào giỏ</button></div></div></article>`,
             )
             .join("") || "<p>Không tìm thấy sản phẩm phù hợp.</p>";
       }
@@ -2384,7 +2427,7 @@
         $("#blogGrid").innerHTML = articles
           .map(
             (a, i) =>
-              `<article class="card blog-card"><div class="product-img"><img class="product-photo" src="${getBlogImage(a)}" alt="${a.title}" width="1200" height="900" loading="lazy"></div><div class="product-body"><div class="blog-meta">${a.date}</div><h3>${a.title}</h3><p>${a.excerpt}</p><button class="btn secondary" onclick="openArticle('${a.slug}')">Đọc thêm</button></div></article>`,
+              `<article class="card blog-card" onclick="openArticle('${a.slug}')"><div class="product-img"><img class="product-photo" src="${getBlogImage(a)}" alt="${a.title}" width="1200" height="900" loading="lazy"></div><div class="product-body"><div class="blog-meta">${a.date}</div><h3>${a.title}</h3><p>${a.excerpt}</p><button class="btn secondary" onclick="event.stopPropagation(); openArticle('${a.slug}')">Đọc thêm</button></div></article>`,
           )
           .join("");
       }
