@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -469,6 +469,55 @@
         grid-template-columns: repeat(3, 1fr);
         grid-auto-rows: 1fr;
         gap: 20px;
+      }
+      .partners-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .partner-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 24px 16px;
+        text-align: center;
+        box-shadow: 0 10px 28px rgba(23, 50, 92, 0.04);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        height: 100%;
+        justify-content: center;
+      }
+      .partner-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow);
+        border-color: var(--blue);
+      }
+      .partner-logo {
+        width: 100%;
+        height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+      .partner-logo img {
+        max-width: 90%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+      }
+      .partner-card:hover .partner-logo img {
+        transform: scale(1.05);
+      }
+      .partner-name {
+        font-family: "Comfortaa", Arial, sans-serif;
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.4;
+        margin: 0;
       }
       .card {
         display: flex;
@@ -1274,6 +1323,10 @@
         .blog-grid {
           grid-template-columns: 1fr;
         }
+        .partners-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
         .section-head {
           display: block;
         }
@@ -1361,6 +1414,10 @@
         }
         .product-grid {
           grid-template-columns: 1fr;
+        }
+        .partners-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
         }
         .products-toolbar input,
         .products-toolbar select {
@@ -1741,6 +1798,42 @@
                 loading="lazy"
               />
             </div>
+          </div>
+        </div>
+      </section>
+      <section id="partners">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Suvella Partners</span>
+              <h2>Đơn vị đồng hành</h2>
+            </div>
+          </div>
+          <div class="partners-grid">
+            <a href="https://fidt.vn" target="_blank" rel="noopener" class="partner-card">
+              <div class="partner-logo">
+                <img src="https://trananhtlu.id.vn/partnerfidt.webp" alt="FIDT - Wealth For Life" loading="lazy" />
+              </div>
+              <span class="partner-name">FIDT - Wealth For Life</span>
+            </a>
+            <a href="https://www.facebook.com/sec.bav" target="_blank" rel="noopener" class="partner-card">
+              <div class="partner-logo">
+                <img src="https://trananhtlu.id.vn/partnersec.webp" alt="SEC - Câu lạc bộ Chứng khoán Học viện Ngân hàng" loading="lazy" />
+              </div>
+              <span class="partner-name">SEC - Câu lạc bộ Chứng khoán Học viện Ngân hàng</span>
+            </a>
+            <a href="https://www.facebook.com/micdav.club" target="_blank" rel="noopener" class="partner-card">
+              <div class="partner-logo">
+                <img src="https://trananhtlu.id.vn/partnermic.webp" alt="MIC - Câu lạc bộ MC Học viện Ngoại giao" loading="lazy" />
+              </div>
+              <span class="partner-name">MIC - Câu lạc bộ MC Học viện Ngoại giao</span>
+            </a>
+            <a href="https://www.facebook.com/davprom2025" target="_blank" rel="noopener" class="partner-card">
+              <div class="partner-logo">
+                <img src="https://trananhtlu.id.vn/partnerdavprom.webp" alt="DAV PROM 2025 - CHAVERA" loading="lazy" />
+              </div>
+              <span class="partner-name">DAV PROM 2025 - CHAVERA</span>
+            </a>
           </div>
         </div>
       </section>
