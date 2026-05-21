@@ -500,6 +500,40 @@
         object-fit: cover;
         object-position: center;
       }
+      .feedback-marquee {
+        width: 100%;
+        overflow: hidden;
+        padding: 8px 0;
+      }
+      .feedback-track {
+        display: flex;
+        width: max-content;
+        gap: 18px;
+        animation: feedbackScroll 54s linear infinite;
+        will-change: transform;
+      }
+      .feedback-card {
+        flex: 0 0 clamp(180px, 22vw, 270px);
+        aspect-ratio: 9 / 16;
+        border-radius: var(--media-radius);
+        overflow: hidden;
+        background: var(--pink);
+        box-shadow: 0 10px 28px rgba(23, 50, 92, 0.08);
+      }
+      .feedback-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      @keyframes feedbackScroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(calc(-50% - 9px));
+        }
+      }
       .product-body {
         display: flex;
         flex: 1;
@@ -1532,6 +1566,182 @@
             </select>
           </div>
           <div class="product-grid" id="productGrid"></div>
+        </div>
+      </section>
+      <section id="feedback">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Suvella Feedback</span>
+              <h2>Cảm nhận từ khách hàng</h2>
+            </div>
+          </div>
+        </div>
+        <div class="feedback-marquee" aria-label="Feedback từ khách hàng">
+          <div class="feedback-track">
+            <div class="feedback-card">
+              <img
+                src="https://trananhtlu.id.vn/feedback1.webp"
+                alt="Feedback từ khách hàng Suvella 1"
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card">
+              <img
+                src="https://trananhtlu.id.vn/feedback2.webp"
+                alt="Feedback từ khách hàng Suvella 2"
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card">
+              <img
+                src="https://trananhtlu.id.vn/feedback3.webp"
+                alt="Feedback từ khách hàng Suvella 3"
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card">
+              <img
+                src="https://trananhtlu.id.vn/feedback4.webp"
+                alt="Feedback từ khách hàng Suvella 4"
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card">
+              <img
+                src="https://trananhtlu.id.vn/feedback5.webp"
+                alt="Feedback từ khách hàng Suvella 5"
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card">
+              <img
+                src="https://trananhtlu.id.vn/feedback6.webp"
+                alt="Feedback từ khách hàng Suvella 6"
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card">
+              <img
+                src="https://trananhtlu.id.vn/feedback7.webp"
+                alt="Feedback từ khách hàng Suvella 7"
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card">
+              <img
+                src="https://trananhtlu.id.vn/feedback8.webp"
+                alt="Feedback từ khách hàng Suvella 8"
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card">
+              <img
+                src="https://trananhtlu.id.vn/feedback9.webp"
+                alt="Feedback từ khách hàng Suvella 9"
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card" aria-hidden="true">
+              <img
+                src="https://trananhtlu.id.vn/feedback1.webp"
+                alt=""
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card" aria-hidden="true">
+              <img
+                src="https://trananhtlu.id.vn/feedback2.webp"
+                alt=""
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card" aria-hidden="true">
+              <img
+                src="https://trananhtlu.id.vn/feedback3.webp"
+                alt=""
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card" aria-hidden="true">
+              <img
+                src="https://trananhtlu.id.vn/feedback4.webp"
+                alt=""
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card" aria-hidden="true">
+              <img
+                src="https://trananhtlu.id.vn/feedback5.webp"
+                alt=""
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card" aria-hidden="true">
+              <img
+                src="https://trananhtlu.id.vn/feedback6.webp"
+                alt=""
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card" aria-hidden="true">
+              <img
+                src="https://trananhtlu.id.vn/feedback7.webp"
+                alt=""
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card" aria-hidden="true">
+              <img
+                src="https://trananhtlu.id.vn/feedback8.webp"
+                alt=""
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+            <div class="feedback-card" aria-hidden="true">
+              <img
+                src="https://trananhtlu.id.vn/feedback9.webp"
+                alt=""
+                width="540"
+                height="960"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
       </section>
       <section id="blog">
